@@ -2371,7 +2371,7 @@
         // ===========================
         // 2. Magnetic Buttons Effect
         heroTl.eventCallback("onComplete", () => {
-            document.querySelectorAll('.btn').forEach(btn => {
+            document.querySelectorAll('.btn:not(.newsletter .btn)').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
                     const btnX = rect.left + rect.width / 2;
