@@ -30,21 +30,21 @@
            DESIGN SYSTEM
            =========================== */
         :root {
-            --bg-primary: #1c1e21;
-            --bg-secondary: #1a2421;
-            --bg-card: rgba(26, 36, 33, 0.45);
-            --text-primary: #f4f1ea;
-            --text-secondary: #e2e8f0;
-            --text-tertiary: #a0aec0;
+            --bg-primary: #f4f1ea;
+            --bg-secondary: #e2e8f0;
+            --bg-card: #ffffff;
+            --text-primary: #1c1e21;
+            --text-secondary: #4a5568;
+            --text-tertiary: #718096;
             --accent: #3765d2;
-            --accent-hover: #5882e7;
+            --accent-hover: #264aa6;
             --accent-light: rgba(55, 101, 210, 0.08);
-            --border: rgba(226, 232, 240, 0.08);
-            --border-strong: rgba(226, 232, 240, 0.15);
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-            --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
-            --shadow-xl: 0 20px 60px rgba(28, 30, 33, 0.1);
+            --border: rgba(28, 30, 33, 0.08);
+            --border-strong: rgba(28, 30, 33, 0.15);
+            --shadow-sm: 0 1px 3px rgba(28,30,33,0.05);
+            --shadow-md: 0 4px 20px rgba(28,30,33,0.08);
+            --shadow-lg: 0 12px 40px rgba(28,30,33,0.12);
+            --shadow-xl: 0 20px 60px rgba(28, 30, 33, 0.05);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
@@ -946,8 +946,8 @@
            ABOUT SECTION
            =========================== */
         .about {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
+            background: #1a2421 !important;
+            color: #f4f1ea !important;
         }
 
         .about .section-label {
@@ -955,11 +955,27 @@
         }
 
         .about .section-heading {
-            color: var(--text-primary);
+            color: #f4f1ea !important;
         }
 
         .about .section-subtext {
-            color: var(--text-secondary);
+            color: #e2e8f0 !important;
+        }
+        
+        .about .bg-watermark {
+            color: #f4f1ea !important;
+        }
+        
+        .about .outline-text {
+            -webkit-text-stroke: 1px #f4f1ea !important;
+        }
+        
+        .about .about-signature-name {
+            color: #f4f1ea !important;
+        }
+        
+        .about .about-signature-role {
+            color: #a0aec0 !important;
         }
 
         .about-grid {
@@ -2436,9 +2452,9 @@ scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
 // High-contrast cinematic lighting (Amber + Royal Blue + Alice Blue)
 const key = new THREE.DirectionalLight(0xffaa44, 2.2); key.position.set(5,6,6); scene.add(key); // Saturated Amber/Gold (accentuates wood grain)
-const rim = new THREE.DirectionalLight(0x3765d2, 3.2); rim.position.set(-6,-1,3); scene.add(rim); // Royal Blue rim light (matches accent color)
-const fill = new THREE.DirectionalLight(0xe2e8f0, 1.2); fill.position.set(0,-5,-4); scene.add(fill); // Cool Alice Blue fill light (matches secondary text)
-scene.add(new THREE.AmbientLight(0x1a2421, .4));
+const rim = new THREE.DirectionalLight(0x3765d2, 2.5); rim.position.set(-6,-1,3); scene.add(rim); // Royal Blue rim light (matches accent color)
+const fill = new THREE.DirectionalLight(0xe2e8f0, 1.5); fill.position.set(0,-5,-4); scene.add(fill); // Cool Alice Blue fill light (matches secondary text)
+scene.add(new THREE.AmbientLight(0xf4f1ea, 0.7)); // Soft Parchment ambient light for clean light-theme shadows
 
 /* ---------- Model ---------- */
 const model = new THREE.Group();
