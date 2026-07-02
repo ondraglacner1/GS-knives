@@ -308,9 +308,9 @@
     <div class="grain"></div>
     <a href="#main-content" class="skip-link">Přejít na hlavní obsah</a>
 
-    <nav class="nav" role="navigation" aria-label="Hlavní navigace">
+    <nav class="nav" id="navbar" role="navigation" aria-label="Hlavní navigace">
         <div class="nav-inner">
-            <a href="index.html" class="nav-logo">GS <span>Knives</span></a>
+            <a href="index.html" class="nav-logo" aria-label="GS Knives — Domů">GS <span>Knives</span></a>
             <ul class="nav-links">
                 <li><a href="nase-noze.html">Naše nože</a></li>
                 <li><a href="galerie.html" class="active">Galerie</a></li>
@@ -319,16 +319,20 @@
                 <li><a href="index.html#kontakt" class="nav-cta">Kontakt</a></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Otevřít menu" aria-expanded="false">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace">
-        <a href="nase-noze.html">Naše nože</a>
-        <a href="galerie.html">Galerie</a>
-        <a href="o-nas.html">O nás</a>
-        <a href="index.html#recenze">Recenze</a>
-        <a href="index.html#kontakt">Kontakt</a>
+        <a href="nase-noze.html" class="mobile-link">Naše nože</a>
+        <a href="galerie.html" class="mobile-link">Galerie</a>
+        <a href="o-nas.html" class="mobile-link">O nás</a>
+        <a href="index.html#recenze" class="mobile-link">Recenze</a>
+        <a href="index.html#kontakt" class="mobile-link">Kontakt</a>
     </div>
 
     <!-- LIGHTBOX -->
