@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS Knives — Ruční nože z damašku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --bg:#0a0b0d; --fg:#edeef1; --muted:#7f858e; --accent:#c9ced6;
+  }
+  html,body{
+    height:100%;
+    background:radial-gradient(circle at 55% 40%, #14161a 0%, var(--bg) 70%);
+    color:var(--fg); font-family:'Syne',sans-serif; overflow:hidden;
+  }
+  #canvas{ position:fixed; inset:0; z-index:0; }
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero{
+    position:relative; z-index:2; height:100%; display:flex; flex-direction:column;
+    padding:2.4rem clamp(1.5rem,5vw,5rem); pointer-events:none;
+  }
+  nav{ display:flex; justify-content:space-between; align-items:center; pointer-events:auto; }
+  .logo{ font-weight:800; font-size:1.15rem; letter-spacing:.35em; text-transform:uppercase; }
+  .logo span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:2.6rem; }
+  .nav-links a{
+    color:var(--muted); text-decoration:none; font-size:.78rem; letter-spacing:.18em;
+    text-transform:uppercase; transition:color .4s;
+  }
+  .nav-links a:hover{ color:var(--fg); }
+  .content{ flex:1; display:flex; flex-direction:column; justify-content:center; max-width:900px; }
+  .eyebrow{
+    display:flex; align-items:center; gap:1rem; color:var(--accent);
+    font-size:.72rem; letter-spacing:.4em; text-transform:uppercase; margin-bottom:2rem;
+    opacity:0; animation:fade 1s ease .3s forwards;
+  }
+  .eyebrow::before{ content:''; width:48px; height:1px; background:var(--accent); }
+  h1{ font-weight:700; font-size:clamp(3rem,8.5vw,8rem); line-height:.95; letter-spacing:-.02em; text-transform:uppercase; }
+  h1 span{ display:block; overflow:hidden; }
+  h1 span i{ display:block; font-style:normal; transform:translateY(110%); animation:rise 1.1s cubic-bezier(.16,1,.3,1) forwards; }
+  h1 span:nth-child(1) i{ animation-delay:.4s; }
+  h1 span:nth-child(2) i{ animation-delay:.55s; }
+  h1 em{ font-family:'Cormorant',serif; font-style:italic; font-weight:400; color:var(--accent); text-transform:none; }
+  .sub{
+    margin-top:2.4rem; max-width:440px; color:var(--muted);
+    font-family:'Cormorant',serif; font-size:1.35rem; line-height:1.5;
+    opacity:0; animation:fade 1s ease .9s forwards;
+  }
+  .foot{
+    display:flex; justify-content:space-between; align-items:flex-end; color:var(--muted);
+    font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+    opacity:0; animation:fade 1s ease 1.1s forwards;
+  }
+  .foot .cta{
+    pointer-events:auto; color:var(--fg); text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:4px; transition:border-color .4s;
+  }
+  .foot .cta:hover{ border-color:var(--accent); }
+  .scroll{ display:flex; align-items:center; gap:.8rem; }
+  .scroll .line{ width:40px; height:1px; background:var(--muted); position:relative; overflow:hidden; }
+  .scroll .line::after{ content:''; position:absolute; inset:0; background:var(--fg); transform:translateX(-100%); animation:slide 2.4s ease-in-out infinite; }
+  @keyframes rise{ to{ transform:translateY(0);} }
+  @keyframes fade{ to{ opacity:1;} }
+  @keyframes slide{ 0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)} }
+  .loader{
+    position:fixed; inset:0; z-index:5; background:var(--bg); display:flex; align-items:center; justify-content:center;
+    color:var(--muted); font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; transition:opacity .8s;
+  }
+  .loader.hide{ opacity:0; pointer-events:none; }
+  @media (max-width:640px){ .nav-links{display:none} .sub{font-size:1.15rem} .foot .scroll{display:none} }
+</style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="grain"></div>
+  <div class="loader" id="loader">Kování…</div>
+
+  <div class="hero">
+    <nav>
+      <div class="logo">GS<span>·</span>Knives</div>
+      <div class="nav-links">
+        <a href="#">Řemeslo</a><a href="#">Kolekce</a><a href="#">Příběh</a><a href="#">Kontakt</a>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="eyebrow">Damašková ocel &amp; vzácné dřevo</div>
+      <h1><span><i>Ostří</i></span><span><i>jako <em>umění</em></i></span></h1>
+      <p class="sub">Každý nůž vzniká pod kladivem z tisíců vrstev oceli. Jeden kus. Jeden příběh. Zrozený z ohně a trpělivosti.</p>
+    </div>
+    <div class="foot">
+      <a class="cta" href="#">Prozkoumat dílnu</a>
+      <div class="scroll"><span>Scroll</span><span class="line"></span></div>
+    </div>
+  </div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const canvas = document.getElementById('canvas');
+const loader = document.getElementById('loader');
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, 0.1, 100);
+camera.position.set(0,0,10);
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(5,6,6); scene.add(key);
+const rim = new THREE.DirectionalLight(0xaebdd6, 3.2); rim.position.set(-6,-1,3); scene.add(rim);
+scene.add(new THREE.AmbientLight(0x404652, .4));
+
+/* ---------- Procedural noise (shared) ---------- */
+function hash(x,y){ const n=Math.sin(x*127.1+y*311.7)*43758.5453; return n-Math.floor(n); }
+function vnoise(x,y){
+  const xi=Math.floor(x), yi=Math.floor(y), xf=x-xi, yf=y-yi;
+  const u=xf*xf*(3-2*xf), v=yf*yf*(3-2*yf);
+  const a=hash(xi,yi), b=hash(xi+1,yi), c=hash(xi,yi+1), d=hash(xi+1,yi+1);
+  return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;
+}
+function fbm(x,y){ let s=0,a=.5,f=1; for(let i=0;i<5;i++){ s+=a*vnoise(x*f,y*f); f*=2; a*=.5; } return s; }
+
+/* ---------- Damascus texture ---------- */
+function makeDamascus(){
+  const w=512,h=1024, c=document.createElement('canvas'); c.width=w; c.height=h;
+  const ctx=c.getContext('2d'), img=ctx.createImageData(w,h);
+  for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+    const nx=x/w*5.5, ny=y/h*15;
+    const q1=fbm(nx,ny), q2=fbm(nx+5.2,ny+1.3);
+    const f=fbm(nx+4*q1, ny+4*q2);
+    let b=Math.abs(Math.sin(f*22 + q1*3));
+    b=Math.pow(b,.42);
+    const dark=[38,36,40], light=[210,214,220];
+    const r=dark[0]+(light[0]-dark[0])*b;
+    const g=dark[1]+(light[1]-dark[1])*b;
+    const bl=dark[2]+(light[2]-dark[2])*b;
+    const i=(y*w+x)*4; img.data[i]=r; img.data[i+1]=g; img.data[i+2]=bl; img.data[i+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; return t;
+}
+
+/* ---------- Wood texture (cocobolo) ---------- */
+function makeWood(){
+  const w=512,h=1024, c=document.createElement('canvas'); c.width=w; c.height=h;
+  const ctx=c.getContext('2d'), img=ctx.createImageData(w,h);
+  for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+    const u=x/w, v=y/h;
+    const n=fbm(u*8, v*2.5);
+    const lines=Math.sin((u*22 + n*4 + fbm(u*4,v*6)*3)*Math.PI);
+    let grain=0.5+0.5*lines;
+    grain=Math.pow(grain,1.6);
+    const base=fbm(u*3+n, v*4);
+    const dark=[62,24,15], mid=[122,54,30], light=[158,86,52];
+    let r=mid[0]+(light[0]-mid[0])*base, g=mid[1]+(light[1]-mid[1])*base, b=mid[2]+(light[2]-mid[2])*base;
+    r=r*(0.55+0.45*grain)+dark[0]*(1-grain)*0.25;
+    g=g*(0.55+0.45*grain)+dark[1]*(1-grain)*0.25;
+    b=b*(0.55+0.45*grain)+dark[2]*(1-grain)*0.25;
+    const i=(y*w+x)*4; img.data[i]=r; img.data[i+1]=g; img.data[i+2]=b; img.data[i+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8; return t;
+}
+
+const damascus = makeDamascus();
+const wood = makeWood();
+
+/* ---------- Model ---------- */
+const model = new THREE.Group();
+
+// Blade – clip point profile (x = length, y = height)
+const s = new THREE.Shape();
+s.moveTo(0, 0.36);
+s.lineTo(2.15, 0.34);           // spine
+s.lineTo(3.35, -0.02);          // clip to tip
+s.quadraticCurveTo(2.6,-0.46, 1.3,-0.46); // belly
+s.lineTo(0, -0.34);
+s.closePath();
+
+const bladeGeo = new THREE.ExtrudeGeometry(s, {
+  depth:0.06, bevelEnabled:true, bevelThickness:0.05, bevelSize:0.05, bevelSegments:5, steps:1
+});
+// remap UVs so damascus flows along the blade
+bladeGeo.computeBoundingBox();
+const bb=bladeGeo.boundingBox, sx=bb.max.x-bb.min.x, sy=bb.max.y-bb.min.y;
+const pos=bladeGeo.attributes.position, uv=bladeGeo.attributes.uv;
+for(let i=0;i<pos.count;i++){
+  uv.setXY(i, (pos.getY(i)-bb.min.y)/sy, (pos.getX(i)-bb.min.x)/sx);
+}
+uv.needsUpdate=true;
+
+const bladeMat = new THREE.MeshStandardMaterial({
+  map:damascus, roughnessMap:damascus, roughness:0.35, metalness:1.0, envMapIntensity:1.5, color:0xffffff
+});
+const blade = new THREE.Mesh(bladeGeo, bladeMat);
+model.add(blade);
+
+// Brass bolster / guard
+const brass = new THREE.MeshStandardMaterial({ color:0xc9a24b, metalness:1.0, roughness:0.32, envMapIntensity:1.3 });
+const guard = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.92, 0.5), brass);
+guard.position.set(-0.02, 0.0, 0);
+model.add(guard);
+// small front collar
+const collar = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.5, 0.34), brass);
+collar.position.set(0.12, 0.02, 0);
+model.add(collar);
+
+// Wooden handle – lathe with a belly swell, bent slightly
+const profile=[
+  [0.06,0.0],[0.20,0.05],[0.24,0.35],[0.30,0.9],
+  [0.335,1.5],[0.32,2.0],[0.22,2.55],[0.06,2.8]
+].map(p=>new THREE.Vector2(p[0],p[1]));
+const handleGeo = new THREE.LatheGeometry(profile, 48);
+// flatten a touch + gentle upward curve toward pommel
+const hp = handleGeo.attributes.position;
+for(let i=0;i<hp.count;i++){
+  const yy=hp.getY(i);            // 0..2.8 along handle
+  const bend = -0.10*Math.pow(yy/2.8,2); // curve
+  hp.setX(i, hp.getX(i)*1.0);
+  hp.setZ(i, hp.getZ(i)*0.82);    // flatten
+  hp.setX(i, hp.getX(i)+bend);
+}
+handleGeo.computeVertexNormals();
+
+const handleMat = new THREE.MeshPhysicalMaterial({
+  map:wood, roughness:0.42, metalness:0.0, clearcoat:0.6, clearcoatRoughness:0.35, envMapIntensity:0.9
+});
+const handle = new THREE.Mesh(handleGeo, handleMat);
+handle.rotation.z = Math.PI/2;   // lay along -x
+handle.position.set(-0.16, 0.02, 0);
+model.add(handle);
+
+// center the whole knife
+model.position.x = -1.5;
+
+const knife = new THREE.Group();
+knife.add(model);
+knife.scale.setScalar(1.15);
+knife.rotation.set(0.05, -0.5, -0.55); // diagonal, blade facing viewer
+knife.position.set(1.3, -0.1, 0);
+scene.add(knife);
+
+/* ---------- Interaction ---------- */
+let tRX=0.05, tRY=-0.5;
+addEventListener('mousemove', e=>{
+  const nx=e.clientX/innerWidth-0.5, ny=e.clientY/innerHeight-0.5;
+  tRY=-0.5+nx*0.6; tRX=0.05+ny*0.45;
+});
+addEventListener('resize', ()=>{
+  camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+const clock=new THREE.Clock();
+function loop(){
+  const t=clock.getElapsedTime();
+  knife.rotation.y += ((tRY + Math.sin(t*0.35)*0.12) - knife.rotation.y)*0.05;
+  knife.rotation.x += (tRX - knife.rotation.x)*0.05;
+  knife.position.y = -0.1 + Math.sin(t*0.55)*0.07;
+  renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+}
+loop();
+setTimeout(()=>loader.classList.add('hide'), 700);
+</script>
+</body>
+</html>

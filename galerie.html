@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GS Knives Galerie — Fotografie ručně kovaných damaškových nožů. Každý snímek zachycuje krásu řemesla a unikátní vzory oceli.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Galerie — GS Knives">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0a0b0d">
+    <title>Galerie — GS Knives</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <link rel="preload" href="fonts/font_7.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/font_6.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/font_40.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/font_39.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="fonts.css">
+    <script src="cart.js" defer></script>
+
+    <style>
+        :root {
+            --bg-primary: #0a0b0d;
+            --bg-secondary: #14161a;
+            --bg-card: rgba(20, 22, 26, 0.45);
+            --text-primary: #edeef1;
+            --text-secondary: #7f858e;
+            --text-tertiary: #595B60;
+            --accent: #c9ced6;
+            --accent-hover: #ffffff;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.15);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'Syne', sans-serif;
+            --font-editorial: 'Cormorant', serif;
+            --max-width: 1280px;
+            --nav-height: 80px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-body);
+            background: radial-gradient(circle at 55% 40%, #14161a 0%, var(--bg-primary) 70%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .grain {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .045;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-md); }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; border: none; cursor: pointer; background: none; }
+
+        .skip-link { position: absolute; top: -60px; left: 16px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: var(--radius-sm); font-weight: 600; z-index: 1000; transition: top 0.3s; }
+        .skip-link:focus { top: 16px; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+        /* NAV */
+        .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); z-index: 100; background: rgba(10, 11, 13, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); height: 100%; display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; }
+        .nav-logo span { font-weight: 400; color: var(--text-secondary); }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+        .nav-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--text-primary); font-weight: 500; }
+        .nav-cta { font-size: 0.85rem !important; font-weight: 500 !important; color: var(--bg-primary) !important; background: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 100px; transition: background 0.3s !important; }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--accent) !important; color: #fff !important; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; width: 28px; cursor: pointer; z-index: 101; padding: 4px 0; }
+        .hamburger span { display: block; height: 1.5px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; transform-origin: center; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px,5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px,-5px); }
+        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); transition: color 0.3s; }
+        .mobile-menu a:hover { color: var(--accent); }
+
+        /* PAGE HERO */
+        .page-hero { padding-top: calc(var(--nav-height) + 4rem); padding-bottom: 3rem; }
+        .page-hero-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); }
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-tertiary); margin-bottom: 1.5rem; }
+        .breadcrumb a { transition: color 0.3s; }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb-sep { opacity: 0.4; }
+        .page-title { font-family: var(--font-heading); font-size: clamp(2.2rem,4vw,3.2rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+        .page-subtitle { font-size: 1rem; color: var(--text-secondary); }
+
+        /* FILTER */
+        .gallery-controls { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem) 2.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-tab { padding: 0.5rem 1.25rem; border-radius: 100px; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); border: 1.5px solid var(--border-strong); cursor: pointer; transition: all 0.25s ease; }
+        .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
+        .filter-tab.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+
+        /* MASONRY GALLERY */
+        .gallery-section { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem) 6rem; }
+        .masonry-grid {
+            columns: 3;
+            column-gap: 1.25rem;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.25rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border);
+            transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
+        }
+        .gallery-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-item.hidden { display: none; }
+
+        .gallery-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(28,30,33,0.7) 0%, transparent 50%);
+            display: flex; align-items: flex-end;
+            padding: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-caption { color: #fff; }
+        .gallery-caption-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 500; }
+        .gallery-caption-sub { font-size: 0.75rem; opacity: 0.75; }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 200;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .lightbox.open { opacity: 1; pointer-events: all; }
+        .lightbox-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(28,30,33,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            cursor: zoom-out;
+        }
+        .lightbox-content {
+            position: relative; z-index: 1;
+            display: flex; align-items: center; gap: 2rem;
+            max-width: 1100px; width: 90vw;
+            padding: 0 1rem;
+        }
+        .lightbox-img-wrap {
+            flex: 1;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-img-wrap img {
+            max-height: 80vh; max-width: 100%;
+            border-radius: var(--radius-lg);
+            object-fit: contain;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+        .lightbox-info {
+            width: 240px; flex-shrink: 0;
+            color: #fff;
+        }
+        .lightbox-info-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; margin-bottom: 0.75rem; }
+        .lightbox-info-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 400; margin-bottom: 0.75rem; line-height: 1.2; }
+        .lightbox-info-desc { font-size: 0.88rem; opacity: 0.7; line-height: 1.7; }
+        .lightbox-close {
+            position: absolute; top: -3rem; right: 0;
+            color: rgba(255,255,255,0.7); font-size: 1.5rem;
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer; transition: all 0.3s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            color: rgba(255,255,255,0.7); font-size: 1.5rem;
+            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer; transition: all 0.3s; z-index: 2;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .lightbox-prev { left: -3.5rem; }
+        .lightbox-next { right: -3.5rem; }
+        .lightbox-counter { position: absolute; bottom: -2.5rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.4); font-size: 0.78rem; white-space: nowrap; font-family: 'Space Grotesk', sans-serif; font-weight: 500; letter-spacing: 0.04em; }
+
+        /* FOOTER */
+        .footer { padding: 4rem 0 2rem; border-top: 1px solid var(--border); }
+        .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-logo { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+        .footer-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+        .footer-heading { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 1.25rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.6rem; }
+        .footer-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-tertiary); }
+        .footer-social { display: flex; gap: 1.25rem; }
+        .footer-social a { color: var(--text-tertiary); transition: color 0.3s; }
+        .footer-social a:hover { color: var(--text-primary); }
+        .footer-social svg { width: 18px; height: 18px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .masonry-grid { columns: 2; } .lightbox-info { display: none; } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; } .hamburger { display: flex; } .mobile-menu { display: flex; }
+            .masonry-grid { columns: 1; }
+            .lightbox-nav { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; }
+        }
+        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
+    
+        .nav-cart-btn{position:relative;cursor:pointer;color:var(--text-secondary);transition:color .3s;background:none;border:none;display:flex;align-items:center;padding:.4rem 0;}.nav-cart-btn:hover{color:var(--text-primary);}.nav-cart-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;}.cart-badge{position:absolute;top:-5px;right:-8px;width:17px;height:17px;background:var(--accent);color:#fff;border-radius:50%;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;opacity:0;transform:scale(0);transition:all .3s cubic-bezier(.34,1.56,.64,1);}.cart-badge.visible{opacity:1;transform:scale(1);}.cart-panel{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;}.cart-panel.open{opacity:1;pointer-events:all;}.cart-backdrop{position:absolute;inset:0;background:rgba(28,30,33,.55);backdrop-filter:blur(10px);cursor:zoom-out;}.cart-inner{position:relative;z-index:1;width:90vw;max-width:760px;max-height:88vh;background:var(--bg-card);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(28,30,33,.2);overflow:hidden; will-change: transform, opacity;}.cart-header{padding:1.75rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}.cart-header h2{font-family:var(--font-heading);font-size:1.5rem;font-weight:400;}.cart-header-right{display:flex;align-items:center;gap:1rem;}.cart-item-count{font-size:.78rem;color:var(--text-tertiary);}.cart-close-btn{width:38px;height:38px;border-radius:50%;background:rgba(28,30,33,.06);border:1px solid var(--border);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all .3s;}.cart-close-btn:hover{background:var(--text-primary);color:var(--bg-primary);}.cart-body{flex:1;overflow-y:auto;padding:0 2.5rem;}.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;text-align:center;color:var(--text-tertiary);gap:.75rem;}.cart-empty-icon{opacity:.2;}.cart-empty-icon svg{width:56px;height:56px;stroke:var(--text-primary);stroke-width:1;fill:none;}.cart-empty p{font-size:.9rem;}.c-item{display:grid;grid-template-columns:72px 1fr auto;gap:1.25rem;align-items:center;padding:1.25rem 0;border-bottom:1px solid var(--border);}.c-item-img{width:72px;height:72px;background:#f0efec;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:.4rem;}.c-item-img img{width:100%;height:100%;object-fit:contain;}.c-item-name{font-family:var(--font-heading);font-size:.95rem;font-weight:500;margin-bottom:.2rem;}.c-item-cat{font-size:.72rem;color:var(--text-tertiary);margin-bottom:.65rem;}.c-item-qty{display:flex;align-items:center;gap:.6rem;}.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:var(--text-secondary);transition:all .25s;background:none;}.qty-btn:hover{border-color:var(--accent);color:var(--accent);}.qty-value{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;min-width:18px;text-align:center;}.c-item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;}.c-item-price{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;}.c-item-remove{font-size:.7rem;color:var(--text-tertiary);cursor:pointer;transition:color .3s;background:none;border:none;padding:0;}.c-item-remove:hover{color:#c0392b;}.cart-footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);flex-shrink:0;}.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}.cart-total-label{font-size:.85rem;color:var(--text-secondary);}.cart-total-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.04em;}.btn-checkout{width:100%;padding:1rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:.9rem;font-weight:500;cursor:pointer;font-family:var(--font-body);border:none;transition:all .35s;}.btn-checkout:hover{background:var(--accent);}.cart-note{font-size:.72rem;color:var(--text-tertiary);text-align:center;margin-top:.75rem;}
+
+        /* Lenis smooth scrolling integration styles */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis.lenis-smooth iframe {
+            pointer-events: none;
+        }
+
+        /* Custom Cursor Styling */
+        @media (pointer: fine) {
+            body, a, button, [role="button"], input, textarea, select, .gallery-item, .filter-tab, .lightbox-close, .lightbox-nav-btn {
+                cursor: none !important;
+            }
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 99999;
+            }
+            .cursor-dot {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 6px;
+                height: 6px;
+                background-color: var(--accent);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+            }
+            .cursor-ring {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(201, 206, 214, 0.45);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            }
+            .custom-cursor.hovering .cursor-ring {
+                width: 52px;
+                height: 52px;
+                background-color: rgba(201, 206, 214, 0.1);
+                border-color: rgba(255, 255, 255, 0.8);
+            }
+            .custom-cursor.hovering .cursor-dot {
+                background-color: #ffffff;
+            }
+        }
+        @media (pointer: coarse) {
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+        </style>
+</head>
+<body>
+    <div class="custom-cursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+    <div class="grain"></div>
+    <a href="#main-content" class="skip-link">Přejít na hlavní obsah</a>
+
+    <nav class="nav" role="navigation" aria-label="Hlavní navigace">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">GS <span>Knives</span></a>
+            <ul class="nav-links">
+                <li><a href="nase-noze.html">Naše nože</a></li>
+                <li><a href="galerie.html" class="active">Galerie</a></li>
+                <li><a href="o-nas.html">O nás</a></li>
+                <li><a href="index.html#recenze">Recenze</a></li>
+                <li><a href="index.html#kontakt" class="nav-cta">Kontakt</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Otevřít menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace">
+        <a href="nase-noze.html">Naše nože</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="o-nas.html">O nás</a>
+        <a href="index.html#recenze">Recenze</a>
+        <a href="index.html#kontakt">Kontakt</a>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Prohlížeč fotografií">
+        <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="Předchozí fotografie">←</button>
+            <div class="lightbox-img-wrap">
+                <img id="lightbox-img" src="" alt="">
+                <button class="lightbox-close" id="lightbox-close" aria-label="Zavřít">✕</button>
+                <div class="lightbox-counter" id="lb-counter"></div>
+            </div>
+            <div class="lightbox-info" id="lightbox-info">
+                <div class="lightbox-info-label">GS Knives</div>
+                <div class="lightbox-info-title" id="lb-title"></div>
+                <div class="lightbox-info-desc" id="lb-desc"></div>
+            </div>
+            <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="Další fotografie">→</button>
+        </div>
+    </div>
+
+    <main id="main-content">
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Domů</a>
+                    <span class="breadcrumb-sep">→</span>
+                    <span>Galerie</span>
+                </nav>
+                <h1 class="page-title">Galerie</h1>
+                <p class="page-subtitle">Každý záběr zachycuje příběh — od výhně po hotový nůž</p>
+            </div>
+        </div>
+
+        <div class="gallery-controls" role="group" aria-label="Filtrování galerie">
+            <button class="filter-tab active" data-filter="all">Vše</button>
+            <button class="filter-tab" data-filter="lovecke">Lovecké</button>
+            <button class="filter-tab" data-filter="kuchynske">Kuchyňské</button>
+            <button class="filter-tab" data-filter="outdoor">Outdoorové</button>
+            <button class="filter-tab" data-filter="detail">Detail</button>
+        </div>
+
+        <section class="gallery-section" aria-label="Galerie fotografií">
+            <div class="masonry-grid" id="masonry-grid">
+
+                <div class="gallery-item" data-category="lovecke"
+                     data-title="Oceán" data-desc="Lovecký nůž, damašková ocel, modrý resin, měděná záštita"
+                     tabindex="0" role="button" aria-label="Zobrazit: Oceán — lovecký nůž">
+                    <img src="images/nuz-1-bile.webp" alt="Lovecký nůž Oceán — GS Knives" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Oceán</div>
+                            <div class="gallery-caption-sub">Lovecký nůž · Damašek</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="kuchynske"
+                     data-title="Fialový sen" data-desc="Santoku, damašková ocel, dubová rukojeť s fialovým resinem"
+                     tabindex="0" role="button" aria-label="Zobrazit: Fialový sen — santoku">
+                    <img src="images/nuz-2.webp" alt="Santoku Fialový sen — GS Knives" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Fialový sen</div>
+                            <div class="gallery-caption-sub">Santoku · Kuchyňský nůž</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="lovecke"
+                     data-title="Oceán — detail" data-desc="Detail čepele a záštity loveckého nože Oceán"
+                     tabindex="0" role="button" aria-label="Zobrazit: Oceán detail">
+                    <img src="images/nuz-1-bile.webp" alt="Detail loveckého nože Oceán" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Oceán — detail</div>
+                            <div class="gallery-caption-sub">Damaškový vzor čepele</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="kuchynske"
+                     data-title="Fialový sen — boční pohled" data-desc="Santoku s nádherným damaškový vzorem ze 67 vrstev oceli"
+                     tabindex="0" role="button" aria-label="Zobrazit: Fialový sen boční pohled">
+                    <img src="images/nuz-2-bile.webp" alt="Santoku Fialový sen — boční pohled" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Fialový sen</div>
+                            <div class="gallery-caption-sub">67 vrstev damaškové oceli</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="kuchynske"
+                     data-title="Temný les" data-desc="Gyuto 210mm — stabilizovaná ořechová kořenice, mosazná záštita"
+                     tabindex="0" role="button" aria-label="Zobrazit: Temný les — gyuto">
+                    <img src="images/chef-knife.webp" alt="Gyuto Temný les — GS Knives" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Temný les</div>
+                            <div class="gallery-caption-sub">Gyuto 210mm · Kuchyňský nůž</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="outdoor"
+                     data-title="Příroda" data-desc="Bushcraft nůž — olivové dřevo, zelený resin, měděné kolíky. Limitovaná série."
+                     tabindex="0" role="button" aria-label="Zobrazit: Příroda — bushcraft nůž">
+                    <img src="images/bushcraft-knife.webp" alt="Bushcraft nůž Příroda — GS Knives" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Příroda</div>
+                            <div class="gallery-caption-sub">Bushcraft · Limitovaná edice</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="kuchynske"
+                     data-title="Yakisugi" data-desc="Nakiri — pálený dub (yakisugi), fialový resin, čistý japonský tvar"
+                     tabindex="0" role="button" aria-label="Zobrazit: Yakisugi — nakiri">
+                    <img src="images/nakiri-knife.webp" alt="Nakiri Yakisugi — GS Knives" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Yakisugi</div>
+                            <div class="gallery-caption-sub">Nakiri · Pálený dub</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="detail"
+                     data-title="Damaškový vzor" data-desc="Makro záběr na vrstvený damascus — unikátní vzor, který se nikdy nezopakuje"
+                     tabindex="0" role="button" aria-label="Zobrazit: Damaškový vzor — detail">
+                    <img src="images/damascus-detail.webp" alt="Makro detail damaškového vzoru oceli" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Damaškový vzor</div>
+                            <div class="gallery-caption-sub">Makro detail · Vrstvená ocel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="detail"
+                     data-title="Kolekce GS Knives" data-desc="Flat lay tří nožů z naší kolekce — lovecký, gyuto a EDC"
+                     tabindex="0" role="button" aria-label="Zobrazit: Kolekce GS Knives">
+                    <img src="images/knives-collection.webp" alt="Flat lay kolekce GS Knives — tři damaškové nože" loading="eager">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <div class="gallery-caption-title">Kolekce</div>
+                            <div class="gallery-caption-sub">Tři nože · Flat lay</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">GS Knives</div>
+                    <p class="footer-desc">Prémiové ručně kované damaškové nože. České nožířství s vášní pro detail a dokonalost.</p>
+                </div>
+                <div>
+                    <h3 class="footer-heading">Navigace</h3>
+                    <ul class="footer-links">
+                        <li><a href="nase-noze.html">Naše nože</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="o-nas.html">O nás</a></li>
+                        <li><a href="index.html#recenze">Recenze</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-heading">Informace</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Doprava</a></li>
+                        <li><a href="#">Vrácení zboží</a></li>
+                        <li><a href="#">Obchodní podmínky</a></li>
+                        <li><a href="#">Ochrana údajů</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-heading">Kontakt</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@gsknives.cz">info@gsknives.cz</a></li>
+                        <li><a href="tel:+420123456789">+420 123 456 789</a></li>
+                        <li>Česká republika</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 GS Knives. Všechna práva vyhrazena.</span>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initialize Lenis (Smooth Scroll)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            smoothTouch: false
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // Initialize Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        
+        if (cursor && cursorDot && cursorRing) {
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                gsap.set(cursorDot, { x: mouseX, y: mouseY });
+            });
+            
+            gsap.ticker.add(() => {
+                const currentX = gsap.getProperty(cursorRing, "x") || 0;
+                const currentY = gsap.getProperty(cursorRing, "y") || 0;
+                const nextX = currentX + (mouseX - currentX) * 0.16;
+                const nextY = currentY + (mouseY - currentY) * 0.16;
+                gsap.set(cursorRing, { x: nextX, y: nextY });
+            });
+            
+            const hoverElements = 'a, button, [role="button"], input, textarea, select, .gallery-item, .filter-tab, .lightbox-close, .lightbox-nav-btn';
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.closest(hoverElements)) {
+                    cursor.classList.add('hovering');
+                }
+            });
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.closest(hoverElements)) {
+                    cursor.classList.remove('hovering');
+                }
+            });
+            
+            document.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { opacity: 0, duration: 0.3 });
+            });
+            document.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { opacity: 1, duration: 0.3 });
+            });
+        }
+
+        // === HAMBURGER ===
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // === INTRO ANIMATIONS ===
+        gsap.from('.nav-logo', { opacity: 0, y: -16, duration: 0.6, ease: 'power3.out' });
+        gsap.from('.nav-links li', { opacity: 0, y: -12, stagger: 0.07, duration: 0.5, ease: 'power3.out', delay: 0.1 });
+        gsap.from('.page-title', { opacity: 0, y: 30, duration: 0.8, ease: 'power3.out', delay: 0.3 });
+        gsap.from('.page-subtitle', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out', delay: 0.5 });
+        gsap.from('.filter-tab', { opacity: 0, y: 10, stagger: 0.07, duration: 0.5, ease: 'power3.out', delay: 0.6 });
+
+        // Set gallery items invisible immediately — prevents flash before GSAP runs
+        gsap.set('.gallery-item', { autoAlpha: 0, y: 24 });
+
+        // Animate in with stagger
+        gsap.to('.gallery-item', {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.07,
+            ease: 'power3.out',
+            delay: 0.5,
+        });
+
+        // === FILTER ===
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const items = document.querySelectorAll('.gallery-item');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const filter = tab.dataset.filter;
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                items.forEach(item => {
+                    const match = filter === 'all' || item.dataset.category === filter;
+                    if (match) {
+                        item.classList.remove('hidden');
+                        gsap.fromTo(item, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+                    } else {
+                        gsap.to(item, { autoAlpha: 0, y: -8, duration: 0.2, ease: 'power2.in', onComplete: () => item.classList.add('hidden') });
+                    }
+                });
+            });
+        });
+
+        // === LIGHTBOX ===
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const lbTitle = document.getElementById('lb-title');
+        const lbDesc = document.getElementById('lb-desc');
+        const lbCounter = document.getElementById('lb-counter');
+        const lbClose = document.getElementById('lightbox-close');
+        const lbBackdrop = document.getElementById('lightbox-backdrop');
+        const lbPrev = document.getElementById('lb-prev');
+        const lbNext = document.getElementById('lb-next');
+
+        let currentIndex = 0;
+        let visibleItems = [];
+
+        function getVisibleItems() {
+            return [...items].filter(i => !i.classList.contains('hidden'));
+        }
+
+        function openLightbox(index) {
+            visibleItems = getVisibleItems();
+            currentIndex = index;
+            updateLightbox();
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            gsap.from('.lightbox-img-wrap img', { scale: 0.9, opacity: 0, duration: 0.4, ease: 'power3.out' });
+            gsap.from('.lightbox-info', { x: 20, opacity: 0, duration: 0.5, ease: 'power3.out', delay: 0.1 });
+        }
+
+        function closeLightbox() {
+            gsap.to(lightbox, { opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => {
+                lightbox.classList.remove('open');
+                gsap.set(lightbox, { opacity: 1 });
+            }});
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            const item = visibleItems[currentIndex];
+            const img = item.querySelector('img');
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lbTitle.textContent = item.dataset.title;
+            lbDesc.textContent = item.dataset.desc;
+            lbCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+        }
+
+        function navigate(dir) {
+            visibleItems = getVisibleItems();
+            currentIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+            gsap.fromTo('.lightbox-img-wrap img',
+                { x: dir > 0 ? 40 : -40, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.35, ease: 'power2.out' }
+            );
+            updateLightbox();
+        }
+
+        items.forEach((item, idx) => {
+            item.addEventListener('click', () => openLightbox([...getVisibleItems()].indexOf(item)));
+            item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox([...getVisibleItems()].indexOf(item)); } });
+        });
+
+        lbClose.addEventListener('click', closeLightbox);
+        lbBackdrop.addEventListener('click', closeLightbox);
+        lbPrev.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+        lbNext.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'ArrowLeft') navigate(-1);
+        });
+
+        window.addEventListener('load', () => console.log('✅ GS Knives — Loaded'));
+        });
+    </script>
+<!-- Košík odstraněn -->
+</body>
+</html>

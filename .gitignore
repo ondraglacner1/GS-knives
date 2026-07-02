@@ -1,0 +1,18 @@
+# Agent folder
+.agents/
+
+# Raw backups and asset dumps
+images/backup/
+images/Fotky/
+images/OneDrive_1_01-07-2026/
+
+# Heavy media & backups
+*.mp4
+*.mov
+*.zip
+*.bak
+
+# OS temporary files
+Thumbs.db
+.DS_Store
+*.log
