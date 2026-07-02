@@ -30,17 +30,17 @@
            DESIGN SYSTEM
            =========================== */
         :root {
-            --bg-primary: #0a0b0d;
-            --bg-secondary: #14161a;
-            --bg-card: rgba(20, 22, 26, 0.45);
-            --text-primary: #edeef1;
-            --text-secondary: #7f858e;
-            --text-tertiary: #595B60;
-            --accent: #c9ced6;
-            --accent-hover: #ffffff;
-            --accent-light: rgba(201, 206, 214, 0.08);
-            --border: rgba(255, 255, 255, 0.08);
-            --border-strong: rgba(255, 255, 255, 0.15);
+            --bg-primary: #1c1e21;
+            --bg-secondary: #1a2421;
+            --bg-card: rgba(26, 36, 33, 0.45);
+            --text-primary: #f4f1ea;
+            --text-secondary: #e2e8f0;
+            --text-tertiary: #a0aec0;
+            --accent: #3765d2;
+            --accent-hover: #5882e7;
+            --accent-light: rgba(55, 101, 210, 0.08);
+            --border: rgba(226, 232, 240, 0.08);
+            --border-strong: rgba(226, 232, 240, 0.15);
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
             --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
             --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
@@ -74,7 +74,7 @@
 
         body {
             font-family: var(--font-body);
-            background: radial-gradient(circle at 55% 40%, #14161a 0%, var(--bg-primary) 70%);
+            background: radial-gradient(circle at 55% 40%, var(--bg-secondary) 0%, var(--bg-primary) 70%);
             color: var(--text-primary);
             line-height: 1.7;
             font-weight: 400;
@@ -2434,11 +2434,11 @@ camera.position.set(0,0,10);
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
-// High-contrast saturated cinematic lighting (Amber + Cyan + Fuchsia)
-const key = new THREE.DirectionalLight(0xffaa44, 2.2); key.position.set(5,6,6); scene.add(key); // Saturated Amber/Gold
-const rim = new THREE.DirectionalLight(0x00bfff, 2.8); rim.position.set(-6,-1,3); scene.add(rim); // Saturated Cyan/Blue
-const fill = new THREE.DirectionalLight(0xd946ef, 1.5); fill.position.set(0,-5,-4); scene.add(fill); // Saturated Magenta/Fuchsia from bottom
-scene.add(new THREE.AmbientLight(0x22252a, .3));
+// High-contrast cinematic lighting (Amber + Royal Blue + Alice Blue)
+const key = new THREE.DirectionalLight(0xffaa44, 2.2); key.position.set(5,6,6); scene.add(key); // Saturated Amber/Gold (accentuates wood grain)
+const rim = new THREE.DirectionalLight(0x3765d2, 3.2); rim.position.set(-6,-1,3); scene.add(rim); // Royal Blue rim light (matches accent color)
+const fill = new THREE.DirectionalLight(0xe2e8f0, 1.2); fill.position.set(0,-5,-4); scene.add(fill); // Cool Alice Blue fill light (matches secondary text)
+scene.add(new THREE.AmbientLight(0x1a2421, .4));
 
 /* ---------- Model ---------- */
 const model = new THREE.Group();
