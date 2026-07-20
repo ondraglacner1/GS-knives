@@ -10,406 +10,23 @@
     <meta name="theme-color" content="#0a0b0d">
     <title>Naše nože — GS Knives</title>
 
+    <!-- Connection Prewarming for CDNs -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <link rel="preload" href="fonts/font_7.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_6.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_40.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_39.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="fonts.css" media="print" onload="this.media='all'">
     <script src="cart.js" defer></script>
 
-    <style>
-        /* ===========================
-           DESIGN SYSTEM
-           =========================== */
-        :root {
-            --bg-primary: #f4f1ea;
-            --bg-secondary: #e2e8f0;
-            --bg-card: #ffffff;
-            --text-primary: #1c1e21;
-            --text-secondary: #4a5568;
-            --text-tertiary: #718096;
-            --accent: #3765d2;
-            --accent-hover: #264aa6;
-            --accent-light: rgba(55, 101, 210, 0.08);
-            --border: rgba(28, 30, 33, 0.08);
-            --border-strong: rgba(28, 30, 33, 0.15);
-            --shadow-sm: 0 1px 3px rgba(28,30,33,0.05);
-            --shadow-md: 0 4px 20px rgba(28,30,33,0.08);
-            --shadow-lg: 0 12px 40px rgba(28,30,33,0.12);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --font-heading: 'Syne', sans-serif;
-            --font-body: 'Syne', sans-serif;
-            --font-editorial: 'Cormorant', serif;
-            --max-width: 1280px;
-            --nav-height: 80px;
-        }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-        body {
-            font-family: var(--font-body);
-            background: radial-gradient(circle at 55% 40%, var(--bg-secondary) 0%, var(--bg-primary) 70%);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        .grain {
-            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .045;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-        img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-md); }
-        a { color: inherit; text-decoration: none; }
-        button { font-family: inherit; border: none; cursor: pointer; background: none; }
-
-        .skip-link { position: absolute; top: -60px; left: 16px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: var(--radius-sm); font-weight: 600; z-index: 1000; transition: top 0.3s; }
-        .skip-link:focus { top: 16px; }
-
-        /* ===========================
-           NAV
-           =========================== */
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            height: var(--nav-height); z-index: 100;
-            background: rgba(10, 11, 13, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: height 0.3s ease;
-        }
-        .nav-inner {
-            max-width: var(--max-width); margin: 0 auto;
-            padding: 0 clamp(1.5rem,4vw,3rem);
-            height: 100%; display: flex; align-items: center; justify-content: space-between;
-        }
-        .nav-logo { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; }
-        .nav-logo span { font-weight: 400; color: var(--text-secondary); }
-        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-        .nav-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a.active { color: var(--text-primary); font-weight: 500; }
-        .nav-cta { font-size: 0.85rem !important; font-weight: 500 !important; color: var(--bg-primary) !important; background: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 100px; transition: background 0.3s !important; }
-        .nav-cta::after { display: none !important; }
-        .nav-cta:hover { background: var(--accent) !important; color: #fff !important; }
-        .hamburger { display: none; flex-direction: column; gap: 5px; width: 28px; cursor: pointer; z-index: 101; padding: 4px 0; }
-        .hamburger span { display: block; height: 1.5px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; transform-origin: center; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px,5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px,-5px); }
-        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
-        .mobile-menu.open { opacity: 1; pointer-events: all; }
-        .mobile-menu a { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); transition: color 0.3s; }
-        .mobile-menu a:hover { color: var(--accent); }
-
-        /* ===========================
-           PAGE HERO
-           =========================== */
-        .page-hero {
-            padding-top: calc(var(--nav-height) + 4rem);
-            padding-bottom: 3rem;
-        }
-        .page-hero-inner {
-            max-width: var(--max-width); margin: 0 auto;
-            padding: 0 clamp(1.5rem,4vw,3rem);
-        }
-        .breadcrumb {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-size: 0.78rem; color: var(--text-tertiary);
-            margin-bottom: 1.5rem;
-        }
-        .breadcrumb a { transition: color 0.3s; }
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { opacity: 0.4; }
-        .page-title { font-family: var(--font-heading); font-size: clamp(2.2rem,4vw,3.2rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-        .page-subtitle { font-size: 1rem; color: var(--text-secondary); }
-
-        /* ===========================
-           FILTER + SORT BAR
-           =========================== */
-        .shop-controls {
-            max-width: var(--max-width); margin: 0 auto;
-            padding: 0 clamp(1.5rem,4vw,3rem);
-            display: flex; align-items: center; justify-content: space-between;
-            gap: 1.5rem; flex-wrap: wrap;
-            padding-bottom: 3rem;
-            border-bottom: 1px solid var(--border);
-        }
-        .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .filter-tab {
-            padding: 0.5rem 1.25rem;
-            border-radius: 100px;
-            font-size: 0.82rem; font-weight: 500;
-            color: var(--text-secondary);
-            border: 1.5px solid var(--border-strong);
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
-        .filter-tab.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
-        .sort-wrap { display: flex; align-items: center; gap: 0.75rem; }
-        .sort-label { font-size: 0.78rem; color: var(--text-tertiary); white-space: nowrap; }
-        .sort-select {
-            padding: 0.45rem 0.9rem; border-radius: var(--radius-sm);
-            border: 1.5px solid var(--border-strong); background: var(--bg-card);
-            font-family: var(--font-body); font-size: 0.82rem; color: var(--text-primary);
-            cursor: pointer; outline: none; appearance: none;
-            padding-right: 2rem;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5D63' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 0.75rem center;
-            transition: border-color 0.3s;
-        }
-        .sort-select:focus { border-color: var(--accent); }
-
-        /* ===========================
-           PRODUCTS GRID
-           =========================== */
-        .shop-section {
-            max-width: var(--max-width); margin: 0 auto;
-            padding: 3rem clamp(1.5rem,4vw,3rem);
-        }
-        .results-count { font-size: 0.82rem; color: var(--text-tertiary); margin-bottom: 2rem; }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-            cursor: pointer;
-            position: relative;
-        }
-        .product-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); transform: translateY(-6px); }
-        .product-card.hidden { display: none; }
-
-        .product-image {
-            aspect-ratio: 1; background: #f0efec; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-            padding: 2rem; position: relative;
-            border-radius: var(--radius-md);
-            margin: 0.75rem 0.75rem 0;
-        }
-        .product-image img { width: 85%; height: 85%; object-fit: contain; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .product-card:hover .product-image img { transform: scale(1.06); }
-
-        .product-badge {
-            position: absolute; top: 1rem; left: 1rem;
-            font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-            padding: 0.35rem 0.75rem; border-radius: 100px;
-        }
-        .badge-new { background: var(--text-primary); color: var(--bg-primary); }
-        .badge-limited { background: var(--accent); color: #fff; }
-        .badge-sold { background: var(--text-tertiary); color: #fff; }
-
-        .product-info { padding: 1.5rem; }
-        .product-category { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.4rem; }
-        .product-name { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem; }
-        .product-desc { font-size: 0.83rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
-        .product-specs { display: flex; gap: 1.25rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-        .spec { font-size: 0.72rem; color: var(--text-tertiary); }
-        .spec strong { color: var(--text-secondary); font-weight: 500; display: block; margin-bottom: 1px; }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .product-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
-        .btn-add {
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            padding: 0.6rem 1.2rem;
-            background: var(--text-primary); color: var(--bg-primary);
-            border-radius: 100px; font-size: 0.8rem; font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .btn-add:hover { background: var(--accent); transform: translateY(-1px); }
-        .btn-sold { padding: 0.6rem 1.2rem; border-radius: 100px; font-size: 0.8rem; color: var(--text-tertiary); border: 1.5px solid var(--border-strong); cursor: not-allowed; }
-
-                /* ===========================
-           PRODUCT MODAL
-           =========================== */
-        .product-modal { position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; }
-        .product-modal.open { opacity: 1; pointer-events: all; }
-        .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.60); backdrop-filter: blur(15px); cursor: zoom-out; }
-        .modal-card { position: relative; z-index: 1; width: 92vw; max-width: 900px; max-height: 90vh; background: rgba(20, 22, 26, 0.75); backdrop-filter: blur(25px) saturate(160%); -webkit-backdrop-filter: blur(25px) saturate(160%); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-xl); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); will-change: transform, opacity; }
-        .modal-img-side { background: rgba(20, 22, 26, 0.45); display: flex; align-items: center; justify-content: center; padding: 3rem; position: relative; }
-        .modal-img-side img { width: 100%; height: 100%; object-fit: contain; }
-        .modal-badge-wrap { position: absolute; top: 1.5rem; left: 1.5rem; background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.1em; }
-        .modal-info-side { padding: 3rem; display: flex; flex-direction: column; overflow-y: auto; }
-        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--text-secondary); cursor: pointer; transition: all 0.3s; z-index: 10; }
-        .modal-close:hover { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
-        .modal-cat { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.75rem; }
-        .modal-title { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 500; margin-bottom: 1rem; line-height: 1.1; }
-        .modal-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6; }
-        .modal-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border); }
-        .spec-item { font-size: 0.75rem; color: var(--text-tertiary); }
-        .spec-item strong { display: block; color: var(--text-primary); font-weight: 500; font-size: 0.85rem; margin-bottom: 0.15rem; }
-        .modal-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-        .modal-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.04em; }
-        .btn-modal-cart { flex: 1; padding: 1rem; background: var(--text-primary); color: var(--bg-primary); border-radius: 100px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.3s; }
-        .btn-modal-cart:hover { background: var(--accent); }
-        @media (max-width: 768px) {
-            .modal-card { grid-template-columns: 1fr; overflow-y: auto; }
-            .modal-img-side { min-height: 250px; padding: 2rem; }
-            .modal-info-side { padding: 2rem; overflow-y: visible; }
-        }
-        /* Empty state */
-        .empty-state { text-align: center; padding: 5rem 1rem; grid-column: 1/-1; }
-        .empty-state p { color: var(--text-secondary); margin-top: 0.75rem; }
-
-        /* ===========================
-           FOOTER
-           =========================== */
-        .footer { padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-        .footer-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-        .footer-logo { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-        .footer-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
-        .footer-heading { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 1.25rem; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 0.6rem; }
-        .footer-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; }
-        .footer-links a:hover { color: var(--accent); }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-tertiary); }
-        .footer-social { display: flex; gap: 1.25rem; }
-        .footer-social a { color: var(--text-tertiary); transition: color 0.3s; }
-        .footer-social a:hover { color: var(--text-primary); }
-        .footer-social svg { width: 18px; height: 18px; }
-
-        /* ===========================
-           RESPONSIVE
-           =========================== */
-        @media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2,1fr); } }
-        /* Cart nav button */
-        .nav-cart-btn { position: relative; cursor: pointer; color: var(--text-secondary); transition: color 0.3s; background: none; border: none; font-family: var(--font-body); display: flex; align-items: center; padding: 0.4rem 0; }
-        .nav-cart-btn:hover { color: var(--text-primary); }
-        .nav-cart-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.5; fill: none; }
-        .cart-badge { position: absolute; top: -5px; right: -8px; width: 17px; height: 17px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 0.58rem; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; opacity: 0; transform: scale(0); transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); }
-        .cart-badge.visible { opacity: 1; transform: scale(1); }
-        /* Cart panel */
-        .cart-panel { position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; }
-        .cart-panel.open { opacity: 1; pointer-events: all; }
-        .cart-backdrop { position: absolute; inset: 0; background: rgba(28,30,33,0.55); backdrop-filter: blur(10px); cursor: zoom-out; }
-        .cart-inner { position: relative; z-index: 1; width: 90vw; max-width: 760px; max-height: 88vh; background: var(--bg-card); border-radius: var(--radius-xl); display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(28,30,33,0.2); overflow: hidden; will-change: transform, opacity; }
-        .cart-header { padding: 1.75rem 2.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-        .cart-header h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 400; }
-        .cart-header-right { display: flex; align-items: center; gap: 1rem; }
-        .cart-item-count { font-size: 0.78rem; color: var(--text-tertiary); }
-        .cart-close-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(28,30,33,0.06); border: 1px solid var(--border); cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.3s; }
-        .cart-close-btn:hover { background: var(--text-primary); color: var(--bg-primary); }
-        .cart-body { flex: 1; overflow-y: auto; padding: 0 2.5rem; }
-        .cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1rem; text-align: center; color: var(--text-tertiary); gap: 0.75rem; }
-        .cart-empty-icon { opacity: 0.2; }
-        .cart-empty-icon svg { width: 56px; height: 56px; stroke: var(--text-primary); stroke-width: 1; fill: none; }
-        .cart-empty p { font-size: 0.9rem; }
-        .c-item { display: grid; grid-template-columns: 72px 1fr auto; gap: 1.25rem; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
-        .c-item-img { width: 72px; height: 72px; background: #f0efec; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0.4rem; }
-        .c-item-img img { width: 100%; height: 100%; object-fit: contain; }
-        .c-item-name { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; }
-        .c-item-cat { font-size: 0.72rem; color: var(--text-tertiary); margin-bottom: 0.65rem; }
-        .c-item-qty { display: flex; align-items: center; gap: 0.6rem; }
-        .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); transition: all 0.25s; background: none; }
-        .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
-        .qty-value { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 600; min-width: 18px; text-align: center; }
-        .c-item-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
-        .c-item-price { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
-        .c-item-remove { font-size: 0.7rem; color: var(--text-tertiary); cursor: pointer; transition: color 0.3s; background: none; border: none; padding: 0; }
-        .c-item-remove:hover { color: #c0392b; }
-        .cart-footer { padding: 1.75rem 2.5rem; border-top: 1px solid var(--border); flex-shrink: 0; }
-        .cart-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem; }
-        .cart-total-label { font-size: 0.85rem; color: var(--text-secondary); }
-        .cart-total-value { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; }
-        .btn-checkout { width: 100%; padding: 1rem; background: var(--text-primary); color: var(--bg-primary); border-radius: 100px; font-size: 0.9rem; font-weight: 500; cursor: pointer; font-family: var(--font-body); border: none; transition: all 0.35s; }
-        .btn-checkout:hover { background: var(--accent); }
-        .cart-note { font-size: 0.72rem; color: var(--text-tertiary); text-align: center; margin-top: 0.75rem; }
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
-            .mobile-menu { display: flex; }
-            .products-grid { grid-template-columns: 1fr; }
-            .shop-controls { flex-direction: column; align-items: flex-start; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .footer-bottom { flex-direction: column; gap: 1rem; }
-        }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
-
-        /* Lenis smooth scrolling integration styles */
-        html.lenis, html.lenis body {
-            height: auto;
-        }
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-        .lenis.lenis-smooth iframe {
-            pointer-events: none;
-        }
-
-        /* Custom Cursor Styling */
-        @media (pointer: fine) {
-            body, a, button, [role="button"], input, textarea, select, .product-card, .filter-tab, .modal-close {
-                cursor: none !important;
-            }
-            .custom-cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 99999;
-            }
-            .cursor-dot {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 6px;
-                height: 6px;
-                background-color: var(--accent);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-            }
-            .cursor-ring {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 32px;
-                height: 32px;
-                border: 1px solid rgba(201, 206, 214, 0.45);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-            }
-            .custom-cursor.hovering .cursor-ring {
-                width: 52px;
-                height: 52px;
-                background-color: rgba(201, 206, 214, 0.1);
-                border-color: rgba(255, 255, 255, 0.8);
-            }
-            .custom-cursor.hovering .cursor-dot {
-                background-color: #ffffff;
-            }
-        }
-        @media (pointer: coarse) {
-            .custom-cursor {
-                display: none !important;
-            }
-        }
-    </style>
+    <style>:root{--bg-primary:#f4f1ea;--bg-secondary:#e2e8f0;--bg-card:#ffffff;--text-primary:#1c1e21;--text-secondary:#4a5568;--text-tertiary:#718096;--accent:#3765d2;--accent-hover:#264aa6;--accent-light:rgba(55,101,210,0.08);--border:rgba(28,30,33,0.08);--border-strong:rgba(28,30,33,0.15);--shadow-sm:0 1px 3px rgba(28,30,33,0.05);--shadow-md:0 4px 20px rgba(28,30,33,0.08);--shadow-lg:0 12px 40px rgba(28,30,33,0.12);--radius-sm:8px;--radius-md:12px;--radius-lg:20px;--font-heading:'Syne',sans-serif;--font-body:'Syne',sans-serif;--font-editorial:'Cormorant',serif;--nav-height:108px;}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}body{font-family:var(--font-body);background:radial-gradient(circle at 55% 40%,var(--bg-secondary) 0%,var(--bg-primary) 70%);color:var(--text-primary);line-height:1.7;overflow-x:hidden;}.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}img{max-width:100%;height:auto;display:block;border-radius:var(--radius-md);}a{color:inherit;text-decoration:none;}button{font-family:inherit;border:none;cursor:pointer;background:none;}.skip-link{position:absolute;top:-60px;left:16px;background:var(--accent);color:#fff;padding:12px 24px;border-radius:var(--radius-sm);font-weight:600;z-index:1000;transition:top 0.3s;}.skip-link:focus{top:16px;}.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-height);z-index:100;background:rgba(242,239,235,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}.nav.scrolled{background:rgba(242,239,235,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:96px;}.nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);height:100%;display:flex;align-items:center;justify-content:space-between;}.nav-logo{font-family:var(--font-heading);font-size:1.85rem;font-weight:600;letter-spacing:0.02em;}@view-transition{navigation:auto;}::view-transition-old(root){animation-duration:0.22s;}::view-transition-new(root){animation-duration:0.3s;}@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none !important;}}.nav-logo span{font-weight:400;color:var(--text-secondary);}.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}.nav-links a{font-size:1.08rem;color:var(--text-secondary);transition:color 0.3s;position:relative;}or 0.3s;position:relative;}.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--accent);transition:width 0.3s;}.nav-links a:hover{color:var(--text-primary);}.nav-links a:hover::after,.nav-links a.active::after{width:100%;}.nav-links a.active{color:var(--text-primary);font-weight:500;}.nav-cta{font-size:0.92rem !important;font-weight:500 !important;color:var(--bg-primary) !important;background:var(--text-primary);padding:0.6rem 1.5rem;border-radius:100px;transition:background 0.3s !important;}.nav-cta::after{display:none !important;}.nav-cta:hover{background:var(--accent) !important;color:#fff !important;}.hamburger{display:none;flex-direction:column;gap:5px;width:28px;cursor:pointer;z-index:101;padding:4px 0;}.hamburger span{display:block;height:1.5px;background:var(--text-primary);border-radius:2px;transition:all 0.3s;transform-origin:center;}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,5px);}.hamburger.active span:nth-child(2){opacity:0;}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px);}.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg-primary);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}.mobile-menu.open{opacity:1;pointer-events:all;}.mobile-menu a{font-family:var(--font-heading);font-size:2rem;color:var(--text-primary);transition:color 0.3s;}.mobile-menu a:hover{color:var(--accent);}.page-hero{padding-top:calc(var(--nav-height) + 4rem);padding-bottom:3rem;}.page-hero-inner{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}.breadcrumb{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--text-tertiary);margin-bottom:1.5rem;}.breadcrumb a{transition:color 0.3s;}.breadcrumb a:hover{color:var(--accent);}.breadcrumb-sep{opacity:0.4;}.page-title{font-family:var(--font-heading);font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:0.75rem;}.page-subtitle{font-size:1rem;color:var(--text-secondary);}.shop-controls{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;padding-bottom:3rem;border-bottom:1px solid var(--border);}.filter-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;}.filter-tab{padding:0.5rem 1.25rem;border-radius:100px;font-size:0.82rem;font-weight:500;color:var(--text-secondary);border:1.5px solid var(--border-strong);cursor:pointer;transition:all 0.25s ease;}.filter-tab:hover{border-color:var(--accent);color:var(--accent);}.filter-tab.active{background:var(--text-primary);color:var(--bg-primary);border-color:var(--text-primary);}.sort-wrap{display:flex;align-items:center;gap:0.75rem;}.sort-label{font-size:0.78rem;color:var(--text-tertiary);white-space:nowrap;}.sort-select{padding:0.45rem 0.9rem;border-radius:var(--radius-sm);border:1.5px solid var(--border-strong);background:var(--bg-card);font-family:var(--font-body);font-size:0.82rem;color:var(--text-primary);cursor:pointer;outline:none;appearance:none;padding-right:2rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5D63' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.75rem center;transition:border-color 0.3s;}.sort-select:focus{border-color:var(--accent);}.shop-section{max-width:var(--max-width);margin:0 auto;padding:3rem clamp(1.5rem,4vw,3rem);}.results-count{font-size:0.82rem;color:var(--text-tertiary);margin-bottom:2rem;}.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2rem;}.product-card{background:var(--bg-card);border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);cursor:pointer;position:relative;}.product-card:hover{border-color:var(--border-strong);box-shadow:var(--shadow-lg);transform:translateY(-6px);}.product-card.hidden{display:none;}.product-image{aspect-ratio:1;background:#f0efec;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;border-radius:var(--radius-md);margin:0.75rem 0.75rem 0;}.product-image img{width:85%;height:85%;object-fit:contain;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);}.product-card:hover .product-image img{transform:scale(1.06);}.product-badge{position:absolute;top:1rem;left:1rem;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 0.75rem;border-radius:100px;}.badge-new{background:var(--text-primary);color:var(--bg-primary);}.badge-limited{background:var(--accent);color:#fff;}.badge-sold{background:var(--text-tertiary);color:#fff;}.product-info{padding:1.5rem;}.product-category{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.4rem;}.product-name{font-family:var(--font-heading);font-size:1.2rem;font-weight:500;margin-bottom:0.5rem;}.product-desc{font-size:0.83rem;color:var(--text-secondary);margin-bottom:1rem;line-height:1.6;}.product-specs{display:flex;gap:1.25rem;margin-bottom:1.25rem;flex-wrap:wrap;}.spec{font-size:0.72rem;color:var(--text-tertiary);}.spec strong{color:var(--text-secondary);font-weight:500;display:block;margin-bottom:1px;}.product-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);}.product-price{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em;}.btn-add{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:0.8rem;font-weight:500;transition:all 0.3s ease;}.btn-add:hover{background:var(--accent);transform:translateY(-1px);}.btn-sold{padding:0.6rem 1.2rem;border-radius:100px;font-size:0.8rem;color:var(--text-tertiary);border:1.5px solid var(--border-strong);cursor:not-allowed;}.product-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;}.product-modal.open{opacity:1;pointer-events:all;}.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.60);backdrop-filter:blur(15px);cursor:zoom-out;}.modal-card{position:relative;z-index:1;width:92vw;max-width:900px;max-height:90vh;background:var(--bg-primary);border:1px solid var(--border-strong);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.35);will-change:transform,opacity;}.modal-img-side{background:#f0efec;display:flex;align-items:center;justify-content:center;padding:3rem;position:relative;}.modal-img-side img{width:100%;height:100%;object-fit:contain;}.modal-badge-wrap{position:absolute;top:1.5rem;left:1.5rem;background:var(--accent);color:#fff;font-size:0.65rem;font-weight:600;padding:0.35rem 0.75rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.1em;}.modal-info-side{padding:3rem;display:flex;flex-direction:column;overflow-y:auto;}.modal-close{position:absolute;top:1.5rem;right:1.5rem;width:38px;height:38px;border-radius:50%;background:rgba(28,30,33,0.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text-secondary);cursor:pointer;transition:all 0.3s;z-index:10;}.modal-close:hover{background:var(--text-primary);color:var(--bg-primary);border-color:var(--text-primary);}.modal-cat{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.75rem;}.modal-title{font-family:var(--font-heading);font-size:2.2rem;font-weight:500;margin-bottom:1rem;line-height:1.1;}.modal-desc{font-size:0.9rem;color:var(--text-primary);margin-bottom:2rem;line-height:1.6;}.modal-specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border);}.modal-spec-label{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#3a4556;margin-bottom:0.15rem;}.modal-spec-value{font-size:0.85rem;color:var(--text-primary);font-weight:500;}.modal-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}.modal-price{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:-0.04em;}.btn-modal-cart{flex:1;padding:1rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:0.5rem;transition:background 0.3s;}.btn-modal-cart:hover{background:var(--accent);}@media (max-width:768px){.modal-card{grid-template-columns:1fr;overflow-y:auto;}.modal-img-side{min-height:250px;padding:2rem;}.modal-info-side{padding:2rem;overflow-y:visible;}}.empty-state{text-align:center;padding:5rem 1rem;grid-column:1/-1;}.empty-state p{color:var(--text-secondary);margin-top:0.75rem;}.footer{padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:4rem;}.footer-inner{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}.footer-logo{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;margin-bottom:1rem;}.footer-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7;}.footer-heading{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:1.25rem;}.footer-links{list-style:none;}.footer-links li{margin-bottom:0.6rem;}.footer-links a{font-size:0.88rem;color:var(--text-secondary);transition:color 0.3s;}.footer-links a:hover{color:var(--accent);}.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-tertiary);}.footer-social{display:flex;gap:1.25rem;}.footer-social a{color:var(--text-tertiary);transition:color 0.3s;}.footer-social a:hover{color:var(--text-primary);}.footer-social svg{width:18px;height:18px;}@media (max-width:1024px){.products-grid{grid-template-columns:repeat(2,1fr);}}.nav-cart-btn{position:relative;cursor:pointer;color:var(--text-secondary);transition:color 0.3s;background:none;border:none;font-family:var(--font-body);display:flex;align-items:center;padding:0.4rem 0;}.nav-cart-btn:hover{color:var(--text-primary);}.nav-cart-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;}.cart-badge{position:absolute;top:-5px;right:-8px;width:17px;height:17px;background:var(--accent);color:#fff;border-radius:50%;font-size:0.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;opacity:0;transform:scale(0);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}.cart-badge.visible{opacity:1;transform:scale(1);}.cart-panel{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;}.cart-panel.open{opacity:1;pointer-events:all;}.cart-backdrop{position:absolute;inset:0;background:rgba(28,30,33,0.55);backdrop-filter:blur(10px);cursor:zoom-out;}.cart-inner{position:relative;z-index:1;width:90vw;max-width:760px;max-height:88vh;background:var(--bg-card);border-radius:var(--radius-xl);display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(28,30,33,0.2);overflow:hidden;will-change:transform,opacity;}.cart-header{padding:1.75rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}.cart-header h2{font-family:var(--font-heading);font-size:1.5rem;font-weight:400;}.cart-header-right{display:flex;align-items:center;gap:1rem;}.cart-item-count{font-size:0.78rem;color:var(--text-tertiary);}.cart-close-btn{width:38px;height:38px;border-radius:50%;background:rgba(28,30,33,0.06);border:1px solid var(--border);cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all 0.3s;}.cart-close-btn:hover{background:var(--text-primary);color:var(--bg-primary);}.cart-body{flex:1;overflow-y:auto;padding:0 2.5rem;}.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;text-align:center;color:var(--text-tertiary);gap:0.75rem;}.cart-empty-icon{opacity:0.2;}.cart-empty-icon svg{width:56px;height:56px;stroke:var(--text-primary);stroke-width:1;fill:none;}.cart-empty p{font-size:0.9rem;}.c-item{display:grid;grid-template-columns:72px 1fr auto;gap:1.25rem;align-items:center;padding:1.25rem 0;border-bottom:1px solid var(--border);}.c-item-img{width:72px;height:72px;background:#f0efec;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:0.4rem;}.c-item-img img{width:100%;height:100%;object-fit:contain;}.c-item-name{font-family:var(--font-heading);font-size:0.95rem;font-weight:500;margin-bottom:0.2rem;}.c-item-cat{font-size:0.72rem;color:var(--text-tertiary);margin-bottom:0.65rem;}.c-item-qty{display:flex;align-items:center;gap:0.6rem;}.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;color:var(--text-secondary);transition:all 0.25s;background:none;}.qty-btn:hover{border-color:var(--accent);color:var(--accent);}.qty-value{font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:600;min-width:18px;text-align:center;}.c-item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;}.c-item-price{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;}.c-item-remove{font-size:0.7rem;color:var(--text-tertiary);cursor:pointer;transition:color 0.3s;background:none;border:none;padding:0;}.c-item-remove:hover{color:#c0392b;}.cart-footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);flex-shrink:0;}.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}.cart-total-label{font-size:0.85rem;color:var(--text-secondary);}.cart-total-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-0.04em;}.btn-checkout{width:100%;padding:1rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:0.9rem;font-weight:500;cursor:pointer;font-family:var(--font-body);border:none;transition:all 0.35s;}.btn-checkout:hover{background:var(--accent);}.cart-note{font-size:0.72rem;color:var(--text-tertiary);text-align:center;margin-top:0.75rem;}@media (max-width:768px){.nav-links{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}.products-grid{grid-template-columns:1fr;}.shop-controls{flex-direction:column;align-items:flex-start;}.footer-grid{grid-template-columns:1fr 1fr;}.footer-bottom{flex-direction:column;gap:1rem;}}@media (max-width:480px){.footer-grid{grid-template-columns:1fr;}}@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms !important;}}html.lenis,html.lenis body{height:auto;}.lenis.lenis-smooth{scroll-behavior:auto !important;}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}.lenis.lenis-stopped{overflow:hidden;}.lenis.lenis-smooth iframe{pointer-events:none;}@media (pointer:fine){body,a,button,[role="button"],input,textarea,select,.product-card,.filter-tab,.modal-close{cursor:none !important;}.custom-cursor{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99999;}.cursor-dot{position:absolute;top:0;left:0;width:6px;height:6px;background-color:var(--accent);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;}.cursor-ring{position:absolute;top:0;left:0;width:32px;height:32px;border:1px solid rgba(201,206,214,0.45);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:width 0.3s ease,height 0.3s ease,background-color 0.3s ease,border-color 0.3s ease;}.custom-cursor.hovering .cursor-ring{width:52px;height:52px;background-color:rgba(201,206,214,0.1);border-color:rgba(255,255,255,0.8);}.custom-cursor.hovering .cursor-dot{background-color:#ffffff;}}@media (pointer:coarse){.custom-cursor{display:none !important;}}</style>
 </head>
 <body>
     <div class="custom-cursor" aria-hidden="true">
@@ -424,7 +41,6 @@
             <a href="index.html" class="nav-logo" aria-label="GS Knives — Domů">GS <span>Knives</span></a>
             <ul class="nav-links">
                 <li><a href="nase-noze.html" class="active">Naše nože</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
                 <li><a href="o-nas.html">O nás</a></li>
                 <li><a href="index.html#recenze">Recenze</a></li>
                 <li><a href="index.html#kontakt" class="nav-cta">Kontakt</a></li>
@@ -440,7 +56,6 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace">
         <a href="nase-noze.html" class="mobile-link">Naše nože</a>
-        <a href="galerie.html" class="mobile-link">Galerie</a>
         <a href="o-nas.html" class="mobile-link">O nás</a>
         <a href="index.html#recenze" class="mobile-link">Recenze</a>
         <a href="index.html#kontakt" class="mobile-link">Kontakt</a>
@@ -456,129 +71,159 @@
                     <span>Naše nože</span>
                 </nav>
                 <h1 class="page-title">Kolekce</h1>
-                <p class="page-subtitle">Ručně kované nože z damaškové oceli — každý kus originál</p>
+                <p class="page-subtitle">Ručně kované nože z&nbsp;damaškové oceli – každý kus originál</p>
             </div>
         </div>
 
         <!-- Controls -->
         <div class="shop-controls">
-            <div class="filter-tabs" role="group" aria-label="Filtrování produktů">
-                <button class="filter-tab active" data-filter="all">Vše <span id="count-all">(6)</span></button>
+            <div class="filter-tabs" role="group" aria-label="Filtrování kolekce">
+                <button class="filter-tab active" data-filter="all">Vše <span id="count-all">(9)</span></button>
                 <button class="filter-tab" data-filter="kuchynske">Kuchyňské <span id="count-kuchynske">(3)</span></button>
-                <button class="filter-tab" data-filter="lovecke">Lovecké <span id="count-lovecke">(1)</span></button>
+                <button class="filter-tab" data-filter="lovecke">Lovecké <span id="count-lovecke">(2)</span></button>
                 <button class="filter-tab" data-filter="outdoorove">Outdoorové <span id="count-outdoorove">(1)</span></button>
                 <button class="filter-tab" data-filter="edc">EDC <span id="count-edc">(1)</span></button>
-            </div>
-            <div class="sort-wrap">
-                <label class="sort-label" for="sort-select">Seřadit:</label>
-                <select class="sort-select" id="sort-select" aria-label="Seřadit produkty">
-                    <option value="default">Výchozí</option>
-                    <option value="price-asc">Cena: nejnižší</option>
-                    <option value="price-desc">Cena: nejvyšší</option>
-                    <option value="name-asc">Název A–Z</option>
-                </select>
+                <button class="filter-tab" data-filter="detaily">Detaily <span id="count-detaily">(2)</span></button>
             </div>
         </div>
 
         <!-- Products -->
         <section class="shop-section" aria-labelledby="shop-title">
             <h2 id="shop-title" class="sr-only">Produkty</h2>
-            <p class="results-count" id="results-count">Zobrazeno <strong>6</strong> produktů</p>
-                        <div class="products-grid" id="products-grid">
-
+            <p class="results-count" id="results-count">Zobrazeno <strong>9</strong> kusů</p>
+            <div class="products-grid" id="products-grid">
                 <!-- 1 -->
-                <article class="product-card reveal" data-category="lovecke" data-price="12900" data-name="Oceán" id="p-ocean" data-product="ocean" tabindex="0" role="button" aria-label="Zobrazit detail: Oceán">
+                <article class="product-card reveal" data-category="lovecke" data-name="Oceán" id="p-ocean" data-product="ocean" tabindex="0" role="button" aria-label="Zobrazit detail: Oceán">
                     <div class="product-image">
                         <span class="product-badge badge-new">Nový kus</span>
-                        <img src="images/nuz-1-bile.webp" alt="Lovecký nůž Oceán" loading="eager">
+                        <img src="images/ocean-slate.avif" alt="Lovecký nůž Oceán — san-mai čepel s mědí, modrá stabilizovaná kořenice" loading="eager">
                     </div>
                     <div class="product-info">
                         <div class="product-category">Lovecký nůž</div>
                         <h3 class="product-name">Oceán</h3>
-                        <p class="product-desc" style="display:none;">Damašková ocel, stabilizovaná topol. kořenice s modrým resinem, měděná záštita a lícní deska</p>
+                        <p class="product-desc">Damašková ocel, stabilizovaná topol. kořenice s&nbsp;modrým resinem, měděná záštita a&nbsp;lícní deska</p>
                         <div class="product-footer">
-                            <span class="product-price">12 900 Kč</span>
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- 2 -->
-                <article class="product-card reveal" data-category="kuchynske" data-price="9800" data-name="Fialový sen" id="p-fiala" data-product="fiala" tabindex="0" role="button" aria-label="Zobrazit detail: Fialový sen">
+                <article class="product-card reveal" data-category="kuchynske" data-name="Fialový sen" id="p-fiala" data-product="fiala" tabindex="0" role="button" aria-label="Zobrazit detail: Fialový sen">
                     <div class="product-image">
-                        <img src="images/nuz-2-bile.webp" alt="Santoku nůž Fialový sen" loading="eager">
+                        <img src="images/gyuto-fialovy-sen.avif" alt="Gyuto Fialový sen — kurouchi čepel, rukojeť z wenge a purpleheartu" loading="eager">
                     </div>
                     <div class="product-info">
-                        <div class="product-category">Kuchyňský nůž</div>
+                        <div class="product-category">Kuchyňský nůž — Gyuto</div>
                         <h3 class="product-name">Fialový sen</h3>
-                        <p class="product-desc" style="display:none;">Santoku s výrazným damaškovou vzorem a elegantní rukojetí z dubu a fialového resinu</p>
+                        <p class="product-desc">Kurouchi čepel, oktagonální rukojeť z&nbsp;wenge a&nbsp;purpleheartu</p>
                         <div class="product-footer">
-                            <span class="product-price">9 800 Kč</span>
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- 3 -->
-                <article class="product-card reveal" data-category="kuchynske" data-price="11500" data-name="Temný les" id="p-les" data-product="les" tabindex="0" role="button" aria-label="Zobrazit detail: Temný les">
+                <article class="product-card reveal" data-category="lovecke" data-name="Sokolí pero" id="p-les" data-product="les" tabindex="0" role="button" aria-label="Zobrazit detail: Sokolí pero">
                     <div class="product-image">
-                        <img src="images/chef-knife.webp" alt="Gyuto Temný les" loading="eager">
+                        <img src="images/bowie-wood.avif" alt="Bowie Sokolí pero — čepel z peříčkového damašku, palisandrová rukojeť" loading="eager">
                     </div>
                     <div class="product-info">
-                        <div class="product-category">Kuchyňský nůž</div>
-                        <h3 class="product-name">Temný les</h3>
-                        <p class="product-desc" style="display:none;">Gyuto 210 mm se stabilizovanou ořechovou kořenicí a mosaznou záštitou</p>
+                        <div class="product-category">Lovecký nůž — Bowie</div>
+                        <h3 class="product-name">Sokolí pero</h3>
+                        <p class="product-desc">Peříčkový damašek, palisandrová rukojeť, mosazná záštita</p>
                         <div class="product-footer">
-                            <span class="product-price">11 500 Kč</span>
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- 4 -->
-                <article class="product-card reveal" data-category="outdoorove" data-price="14200" data-name="Příroda" id="p-priroda" data-product="priroda" tabindex="0" role="button" aria-label="Zobrazit detail: Příroda">
+                <article class="product-card reveal" data-category="outdoorove" data-name="Příroda" id="p-priroda" data-product="priroda" tabindex="0" role="button" aria-label="Zobrazit detail: Příroda">
                     <div class="product-image">
                         <span class="product-badge badge-limited">Limitovaná edice</span>
-                        <img src="images/bushcraft-knife.webp" alt="Bushcraft Příroda" loading="eager">
+                        <img src="images/bushcraft-priroda.avif" alt="Bushcraft nůž Příroda — stabilizovaná kořenice, kovaný hřbet" loading="eager">
                     </div>
                     <div class="product-info">
-                        <div class="product-category">Outdoorový nůž</div>
+                        <div class="product-category">Outdoorový nůž — Bushcraft</div>
                         <h3 class="product-name">Příroda</h3>
-                        <p class="product-desc" style="display:none;">Bushcraft nůž s plným trnem, olivové dřevo se zeleným resinem</p>
+                        <p class="product-desc">Stabilizovaná kořenice, kovaný hřbet čepele, plný trn</p>
                         <div class="product-footer">
-                            <span class="product-price">14 200 Kč</span>
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- 5 -->
-                <article class="product-card reveal" data-category="kuchynske" data-price="8900" data-name="Yakisugi" id="p-yakisugi" data-product="yakisugi" tabindex="0" role="button" aria-label="Zobrazit detail: Yakisugi">
+                <article class="product-card reveal" data-category="kuchynske" data-name="Yakisugi" id="p-yakisugi" data-product="yakisugi" tabindex="0" role="button" aria-label="Zobrazit detail: Yakisugi">
                     <div class="product-image">
-                        <img src="images/nakiri-knife.webp" alt="Nakiri Yakisugi" loading="eager">
+                        <img src="images/nakiri-yakisugi.avif" alt="Nakiri Yakisugi — damašková čepel, rukojeť z tmavého dřeva s fialovým spacerem" loading="lazy">
                     </div>
                     <div class="product-info">
-                        <div class="product-category">Kuchyňský nůž</div>
+                        <div class="product-category">Kuchyňský nůž — Nakiri</div>
                         <h3 class="product-name">Yakisugi</h3>
-                        <p class="product-desc" style="display:none;">Nakiri na zeleninu s páleným dubem (yakisugi) a fialovým resinových spacerem</p>
+                        <p class="product-desc">Damašková čepel, rukojeť z&nbsp;tmavého dřeva a&nbsp;fialovým resinovým spacerem</p>
                         <div class="product-footer">
-                            <span class="product-price">8 900 Kč</span>
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- 6 -->
-                <article class="product-card reveal" data-category="edc" data-price="7200" data-name="Javor" id="p-javor" data-product="javor" tabindex="0" role="button" aria-label="Zobrazit detail: Javor">
+                <article class="product-card reveal" data-category="edc" data-name="Javor" id="p-javor" data-product="javor" tabindex="0" role="button" aria-label="Zobrazit detail: Javor">
                     <div class="product-image">
-                        <img src="images/edc-knife.webp" alt="EDC Javor" loading="eager">
+                        <img src="images/edc-javor.avif" alt="EDC nůž Javor — pevná čepel, rukojeť ze světlého dřeva" loading="lazy">
                     </div>
                     <div class="product-info">
-                        <div class="product-category">EDC nůž</div>
+                        <div class="product-category">EDC — Pevná čepel</div>
                         <h3 class="product-name">Javor</h3>
-                        <p class="product-desc" style="display:none;">Elegantní skládací nůž pro každodenní nošení</p>
+                        <p class="product-desc">Uhlíková ocel, světlá dřevěná rukojeť s&nbsp;černými kolíky</p>
                         <div class="product-footer">
-                            <span class="product-price">7 200 Kč</span>
+                            <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7 -->
+                <article class="product-card reveal" data-category="detaily" data-name="Peříčkový damašek" id="p-damascus-detail" data-product="damascus-detail" tabindex="0" role="button" aria-label="Zobrazit detail: Peříčkový damašek">
+                    <div class="product-image">
+                        <img src="images/damascus-detail.avif" alt="Detail peříčkového damaškového vzoru čepele" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Detail</div>
+                        <h3 class="product-name">Peříčkový damašek</h3>
+                        <p class="product-desc">Makro záběr leptaného damašku</p>
+                        <div class="product-footer">
+                            <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8 -->
+                <article class="product-card reveal" data-category="kuchynske" data-name="Kiritsuke" id="p-kiritsuke" data-product="kiritsuke-dark" tabindex="0" role="button" aria-label="Zobrazit detail: Kiritsuke">
+                    <div class="product-image">
+                        <img src="images/kiritsuke-dark.avif" alt="Kuchyňský nůž Kiritsuke — stabilizovaná kořenice, japonský tvar čepele" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Kuchyňský nůž</div>
+                        <h3 class="product-name">Kiritsuke</h3>
+                        <p class="product-desc">Kovaná čepel se&nbsp;stabilizovanou kořenicí v&nbsp;modrozelených tónech</p>
+                        <div class="product-footer">
+                            <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 9 -->
+                <article class="product-card reveal" data-category="detaily" data-name="Kované růže" id="p-rose" data-product="rose" tabindex="0" role="button" aria-label="Zobrazit detail: Kované růže">
+                    <div class="product-image">
+                        <img src="images/rose-bouquet.avif" alt="Kytice růží ručně vykovaných z oceli" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Kovářská práce</div>
+                        <h3 class="product-name">Kované růže</h3>
+                        <p class="product-desc">Kytice růží ručně vykovaná z&nbsp;oceli</p>
+                        <div class="product-footer">
                             <span class="product-link" style="font-size:0.85rem;font-weight:500;color:var(--accent);">Detail &rarr;</span>
                         </div>
                     </div>
@@ -603,8 +248,7 @@
                 <p class="modal-desc" id="modal-desc"></p>
                 <div class="modal-specs" id="modal-specs"></div>
                 <div class="modal-footer" style="flex-direction: column; align-items: stretch; gap: 1rem; margin-top: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="modal-price" id="modal-price"></span>
+                    <div style="display: flex; justify-content: center; align-items: center;">
                         <span style="font-size: 0.78rem; color: var(--text-tertiary); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">Jedinečný originál</span>
                     </div>
                     <a class="btn-modal-cart" id="btn-modal-inquiry" href="mailto:info@gsknives.cz" aria-label="Mám zájem — poslat poptávku" style="text-align: center; justify-content: center; width: 100%; display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
@@ -624,14 +268,13 @@
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo">GS Knives</div>
-                    <p class="footer-desc">Prémiové ručně kované damaškové nože. České nožířství s vášní pro detail a dokonalost.</p>
+                    <p class="footer-desc">Prémiové ručně kované damaškové nože. České nožířství s&nbsp;vášní pro&nbsp;detail a&nbsp;dokonalost.</p>
                 </div>
                 <div>
                     <h3 class="footer-heading">Navigace</h3>
                     <ul class="footer-links">
                         <li><a href="nase-noze.html">Naše nože</a></li>
-                        <li><a href="galerie.html">Galerie</a></li>
-                        <li><a href="o-nas.html">O nás</a></li>
+                                <li><a href="o-nas.html">O nás</a></li>
                         <li><a href="index.html#recenze">Recenze</a></li>
                     </ul>
                 </div>
@@ -668,7 +311,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
     <script>
-        window.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener("load", () => {
         gsap.registerPlugin(ScrollTrigger);
 
         // Initialize Lenis (Smooth Scroll)
@@ -727,6 +370,22 @@
             });
         }
 
+        // ===========================
+        // NAVIGATION — Scroll shrink & blur
+        // ===========================
+        const navbar = document.getElementById('navbar');
+
+        ScrollTrigger.create({
+            start: 'top -80',
+            onUpdate: (self) => {
+                if (self.direction === 1 && window.scrollY > 80) {
+                    navbar.classList.add('scrolled');
+                } else if (window.scrollY <= 80) {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+        });
+
         // === HAMBURGER ===
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -782,26 +441,8 @@
                         gsap.to(card, { autoAlpha: 0, y: -8, duration: 0.2, ease: 'power2.in', onComplete: () => card.classList.add('hidden') });
                     }
                 });
-                resultsCount.innerHTML = `Zobrazeno <strong>${visible}</strong> produktů`;
+                resultsCount.innerHTML = `Zobrazeno <strong>${visible}</strong> kusů`;
             });
-        });
-
-        // === SORT ===
-        const sortSelect = document.getElementById('sort-select');
-        sortSelect.addEventListener('change', () => {
-            const grid = document.getElementById('products-grid');
-            const visibleCards = [...cards].filter(c => !c.classList.contains('hidden'));
-            const val = sortSelect.value;
-
-            visibleCards.sort((a, b) => {
-                if (val === 'price-asc') return parseInt(a.dataset.price) - parseInt(b.dataset.price);
-                if (val === 'price-desc') return parseInt(b.dataset.price) - parseInt(a.dataset.price);
-                if (val === 'name-asc') return a.dataset.name.localeCompare(b.dataset.name, 'cs');
-                return 0;
-            });
-
-            visibleCards.forEach(card => grid.appendChild(card));
-            gsap.from(visibleCards, { opacity: 0, y: 15, duration: 0.4, stagger: 0.06, ease: 'power2.out' });
         });
 
         // === HOVER ===

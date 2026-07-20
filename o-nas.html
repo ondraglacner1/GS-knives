@@ -10,337 +10,24 @@
     <meta name="theme-color" content="#0a0b0d">
     <title>O nás — GS Knives</title>
 
+    <!-- Connection Prewarming for CDNs -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Cormorant:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
     <link rel="preload" href="fonts/font_7.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_6.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_40.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/font_39.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="fonts.css" media="print" onload="this.media='all'">
     <script src="cart.js" defer></script>
 
-    <style>
-        :root {
-            --bg-primary: #f4f1ea;
-            --bg-secondary: #e2e8f0;
-            --bg-card: #ffffff;
-            --text-primary: #1c1e21;
-            --text-secondary: #4a5568;
-            --text-tertiary: #718096;
-            --accent: #3765d2;
-            --accent-hover: #264aa6;
-            --accent-light: rgba(55, 101, 210, 0.08);
-            --border: rgba(28, 30, 33, 0.08);
-            --border-strong: rgba(28, 30, 33, 0.15);
-            --shadow-sm: 0 1px 3px rgba(28,30,33,0.05);
-            --shadow-md: 0 4px 20px rgba(28,30,33,0.08);
-            --shadow-lg: 0 12px 40px rgba(28,30,33,0.12);
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 32px;
-            --font-heading: 'Syne', sans-serif;
-            --font-body: 'Syne', sans-serif;
-            --font-editorial: 'Cormorant', serif;
-            --max-width: 1280px;
-            --nav-height: 80px;
-        }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-        body {
-            font-family: var(--font-body);
-            background: radial-gradient(circle at 55% 40%, var(--bg-secondary) 0%, var(--bg-primary) 70%);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        .grain {
-            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .045;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-        img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-md); }
-        a { color: inherit; text-decoration: none; }
-        button { font-family: inherit; border: none; cursor: pointer; background: none; }
-
-        .skip-link { position: absolute; top: -60px; left: 16px; background: var(--accent); color: #fff; padding: 12px 24px; border-radius: var(--radius-sm); font-weight: 600; z-index: 1000; transition: top 0.3s; }
-        .skip-link:focus { top: 16px; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-
-        /* NAV */
-        .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); z-index: 100; background: rgba(10, 11, 13, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .nav-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); height: 100%; display: flex; align-items: center; justify-content: space-between; }
-        .nav-logo { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; }
-        .nav-logo span { font-weight: 400; color: var(--text-secondary); }
-        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-        .nav-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
-        .nav-links a:hover { color: var(--text-primary); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a.active { color: var(--text-primary); font-weight: 500; }
-        .nav-cta { font-size: 0.85rem !important; font-weight: 500 !important; color: var(--bg-primary) !important; background: var(--text-primary); padding: 0.6rem 1.5rem; border-radius: 100px; transition: background 0.3s !important; }
-        .nav-cta::after { display: none !important; }
-        .nav-cta:hover { background: var(--accent) !important; color: #fff !important; }
-        .hamburger { display: none; flex-direction: column; gap: 5px; width: 28px; cursor: pointer; z-index: 101; padding: 4px 0; }
-        .hamburger span { display: block; height: 1.5px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; transform-origin: center; }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px,5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px,-5px); }
-        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
-        .mobile-menu.open { opacity: 1; pointer-events: all; }
-        .mobile-menu a { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); transition: color 0.3s; }
-        .mobile-menu a:hover { color: var(--accent); }
-
-        /* UTILITIES */
-        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 clamp(1.5rem,4vw,3rem); }
-        section { padding: clamp(4rem,8vw,7rem) 0; }
-        .section-label { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: block; }
-        .section-heading { font-family: var(--font-heading); font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
-        .section-text { font-size: 1rem; color: var(--text-secondary); line-height: 1.85; }
-        .reveal { opacity: 0; transform: translateY(28px); }
-
-        /* PAGE HERO */
-        .page-hero {
-            padding-top: calc(var(--nav-height) + 5rem);
-            padding-bottom: 5rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .page-hero::before {
-            content: '';
-            position: absolute;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(201,206,214,0.05) 0%, transparent 70%);
-            border-radius: 50%;
-            top: -100px; right: -100px;
-            pointer-events: none;
-        }
-        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--text-tertiary); margin-bottom: 2rem; }
-        .breadcrumb a { transition: color 0.3s; }
-        .breadcrumb a:hover { color: var(--accent); }
-        .breadcrumb-sep { opacity: 0.4; }
-
-        .hero-intro { max-width: 760px; }
-        .hero-kicker { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-        .hero-kicker::before { content: ''; width: 32px; height: 1.5px; background: var(--accent); }
-        .hero-big-title { font-family: var(--font-heading); font-size: clamp(2.8rem,6vw,5rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 2rem; }
-        .hero-big-title em { font-style: italic; color: var(--accent); }
-        .hero-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.8; max-width: 600px; }
-
-        /* STATS BAR */
-        .stats-bar { background: var(--bg-secondary); color: var(--text-primary); padding: 3rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; text-align: center; }
-        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.04em; }
-        .stat-label { font-size: 0.78rem; color: var(--text-secondary); letter-spacing: 0.08em; text-transform: uppercase; }
-
-        /* STORY */
-        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,6vw,6rem); align-items: center; }
-        .story-image { border-radius: var(--radius-lg); overflow: hidden; }
-        .story-image img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
-        .story-text .section-text + .section-text { margin-top: 1rem; }
-
-        /* PROCESS */
-        .process { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .process-intro { text-align: center; max-width: 560px; margin: 0 auto 4rem; }
-        .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
-        .process-step { padding: 2rem 1.5rem; text-align: center; position: relative; }
-        .process-step:not(:last-child)::after {
-            content: '→';
-            position: absolute; right: -0.75rem; top: 2.5rem;
-            color: var(--border-strong); font-size: 1rem;
-        }
-        .process-number {
-            width: 48px; height: 48px; border-radius: 50%;
-            background: var(--bg-secondary);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem; font-weight: 700;
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
-            margin: 0 auto 1.5rem;
-            transition: all 0.4s ease;
-        }
-        .process-step:hover .process-number { background: var(--text-primary); color: var(--bg-primary); }
-        .process-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 500; margin-bottom: 0.75rem; }
-        .process-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
-
-        /* MATERIALS */
-        .materials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; margin-top: 3rem; }
-        .material-card { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 2rem; background: var(--bg-card); transition: all 0.4s ease; }
-        .material-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateY(-4px); }
-        .material-icon {
-            width: 34px; height: 34px;
-            border: 1.5px solid var(--border-strong);
-            border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.68rem; font-weight: 700;
-            color: var(--text-tertiary);
-            letter-spacing: 0.04em;
-            margin-bottom: 1.5rem;
-        }
-        .material-title { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 500; margin-bottom: 0.5rem; }
-        .material-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
-
-        /* PHILOSOPHY */
-        .philosophy { background: var(--bg-secondary); color: var(--text-primary); }
-        .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,6vw,6rem); align-items: center; }
-        .philosophy-image { border-radius: var(--radius-lg); overflow: hidden; }
-        .philosophy-image img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-        .philosophy-text .section-label { color: var(--accent); }
-        .philosophy-text .section-heading { color: var(--text-primary); }
-        .philosophy-text .section-text { color: var(--text-secondary); }
-        .philosophy-text .section-text + .section-text { margin-top: 1rem; }
-        .philosophy-quote {
-            margin-top: 2.5rem; padding: 1.5rem; border-left: 2px solid var(--accent);
-            font-family: var(--font-editorial); font-size: 1.25rem; font-style: italic;
-            color: var(--text-primary); line-height: 1.6;
-        }
-
-        /* CONTACT */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,6vw,6rem); }
-        .contact-item { display: flex; gap: 1.25rem; margin-bottom: 2rem; align-items: flex-start; }
-        .contact-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-light); border: 1px solid rgba(201,206,214,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .contact-icon svg { width: 18px; height: 18px; stroke: var(--accent); stroke-width: 1.5; fill: none; }
-        .contact-item-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 0.35rem; }
-        .contact-item-value { font-size: 0.95rem; color: var(--text-primary); }
-        .contact-item-value a { color: var(--accent); transition: opacity 0.3s; }
-        .contact-item-value a:hover { opacity: 0.75; }
-
-        /* CONTACT FORM */
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-        .form-group { margin-bottom: 1rem; }
-        .form-label { display: block; font-size: 0.78rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.45rem; letter-spacing: 0.02em; }
-        .form-input, .form-textarea, .form-select {
-            width: 100%; padding: 0.85rem 1.1rem;
-            background: var(--bg-card); border: 1.5px solid var(--border-strong);
-            border-radius: var(--radius-sm); font-family: var(--font-body);
-            font-size: 0.9rem; color: var(--text-primary); outline: none;
-            transition: border-color 0.3s ease;
-        }
-        .form-input::placeholder, .form-textarea::placeholder { color: var(--text-tertiary); }
-        .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--accent); }
-        .form-textarea { min-height: 130px; resize: vertical; }
-        .form-select { appearance: none; cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5D63' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 1rem center;
-        }
-        .btn-submit { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2.5rem; background: var(--text-primary); color: var(--bg-primary); border-radius: 100px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.35s ease; border: none; font-family: var(--font-body); }
-        .btn-submit:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,206,214,0.25); }
-        .form-note { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 1rem; }
-
-        /* FOOTER */
-        .footer { padding: 4rem 0 2rem; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-        .footer-logo { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-        .footer-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
-        .footer-heading { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 1.25rem; }
-        .footer-links { list-style: none; }
-        .footer-links li { margin-bottom: 0.6rem; }
-        .footer-links a { font-size: 0.88rem; color: var(--text-secondary); transition: color 0.3s; }
-        .footer-links a:hover { color: var(--accent); }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-tertiary); }
-        .footer-social { display: flex; gap: 1.25rem; }
-        .footer-social a { color: var(--text-tertiary); transition: color 0.3s; }
-        .footer-social a:hover { color: var(--text-primary); }
-        .footer-social svg { width: 18px; height: 18px; }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .stats-grid { grid-template-columns: repeat(2,1fr); }
-            .process-grid { grid-template-columns: repeat(2,1fr); }
-            .process-step:nth-child(2)::after { display: none; }
-            .story-grid, .philosophy-grid, .contact-grid { grid-template-columns: 1fr; }
-            .materials-grid { grid-template-columns: repeat(2,1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 768px) {
-            .nav-links { display: none; } .hamburger { display: flex; } .mobile-menu { display: flex; }
-            .process-grid { grid-template-columns: 1fr; }
-            .process-step::after { display: none !important; }
-            .materials-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .footer-bottom { flex-direction: column; gap: 1rem; }
-        }
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
-    
-        .nav-cart-btn{position:relative;cursor:pointer;color:var(--text-secondary);transition:color .3s;background:none;border:none;display:flex;align-items:center;padding:.4rem 0;}.nav-cart-btn:hover{color:var(--text-primary);}.nav-cart-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;}.cart-badge{position:absolute;top:-5px;right:-8px;width:17px;height:17px;background:var(--accent);color:#fff;border-radius:50%;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;opacity:0;transform:scale(0);transition:all .3s cubic-bezier(.34,1.56,.64,1);}.cart-badge.visible{opacity:1;transform:scale(1);}.cart-panel{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;}.cart-panel.open{opacity:1;pointer-events:all;}.cart-backdrop{position:absolute;inset:0;background:rgba(28,30,33,.55);backdrop-filter:blur(10px);cursor:zoom-out;}.cart-inner{position:relative;z-index:1;width:90vw;max-width:760px;max-height:88vh;background:var(--bg-card);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(28,30,33,.2);overflow:hidden; will-change: transform, opacity;}.cart-header{padding:1.75rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}.cart-header h2{font-family:var(--font-heading);font-size:1.5rem;font-weight:400;}.cart-header-right{display:flex;align-items:center;gap:1rem;}.cart-item-count{font-size:.78rem;color:var(--text-tertiary);}.cart-close-btn{width:38px;height:38px;border-radius:50%;background:rgba(28,30,33,.06);border:1px solid var(--border);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all .3s;}.cart-close-btn:hover{background:var(--text-primary);color:var(--bg-primary);}.cart-body{flex:1;overflow-y:auto;padding:0 2.5rem;}.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;text-align:center;color:var(--text-tertiary);gap:.75rem;}.cart-empty-icon{opacity:.2;}.cart-empty-icon svg{width:56px;height:56px;stroke:var(--text-primary);stroke-width:1;fill:none;}.cart-empty p{font-size:.9rem;}.c-item{display:grid;grid-template-columns:72px 1fr auto;gap:1.25rem;align-items:center;padding:1.25rem 0;border-bottom:1px solid var(--border);}.c-item-img{width:72px;height:72px;background:#f0efec;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:.4rem;}.c-item-img img{width:100%;height:100%;object-fit:contain;}.c-item-name{font-family:var(--font-heading);font-size:.95rem;font-weight:500;margin-bottom:.2rem;}.c-item-cat{font-size:.72rem;color:var(--text-tertiary);margin-bottom:.65rem;}.c-item-qty{display:flex;align-items:center;gap:.6rem;}.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:var(--text-secondary);transition:all .25s;background:none;}.qty-btn:hover{border-color:var(--accent);color:var(--accent);}.qty-value{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;min-width:18px;text-align:center;}.c-item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;}.c-item-price{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;}.c-item-remove{font-size:.7rem;color:var(--text-tertiary);cursor:pointer;transition:color .3s;background:none;border:none;padding:0;}.c-item-remove:hover{color:#c0392b;}.cart-footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);flex-shrink:0;}.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}.cart-total-label{font-size:.85rem;color:var(--text-secondary);}.cart-total-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.04em;}.btn-checkout{width:100%;padding:1rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:.9rem;font-weight:500;cursor:pointer;font-family:var(--font-body);border:none;transition:all .35s;}.btn-checkout:hover{background:var(--accent);}.cart-note{font-size:.72rem;color:var(--text-tertiary);text-align:center;margin-top:.75rem;}
-
-        /* Lenis smooth scrolling integration styles */
-        html.lenis, html.lenis body {
-            height: auto;
-        }
-        .lenis.lenis-smooth {
-            scroll-behavior: auto !important;
-        }
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-        .lenis.lenis-smooth iframe {
-            pointer-events: none;
-        }
-
-        /* Custom Cursor Styling */
-        @media (pointer: fine) {
-            body, a, button, [role="button"], input, textarea, select, .team-member, .form-group input, .form-group textarea {
-                cursor: none !important;
-            }
-            .custom-cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 99999;
-            }
-            .cursor-dot {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 6px;
-                height: 6px;
-                background-color: var(--accent);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-            }
-            .cursor-ring {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 32px;
-                height: 32px;
-                border: 1px solid rgba(201, 206, 214, 0.45);
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                pointer-events: none;
-                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-            }
-            .custom-cursor.hovering .cursor-ring {
-                width: 52px;
-                height: 52px;
-                background-color: rgba(201, 206, 214, 0.1);
-                border-color: rgba(255, 255, 255, 0.8);
-            }
-            .custom-cursor.hovering .cursor-dot {
-                background-color: #ffffff;
-            }
-        }
-        @media (pointer: coarse) {
-            .custom-cursor {
-                display: none !important;
-            }
-        }
-        </style>
+    <style>:root{--bg-primary:#f4f1ea;--bg-secondary:#e2e8f0;--bg-card:#ffffff;--text-primary:#1c1e21;--text-secondary:#4a5568;--text-tertiary:#718096;--accent:#3765d2;--accent-hover:#264aa6;--accent-light:rgba(55,101,210,0.08);--border:rgba(28,30,33,0.08);--border-strong:rgba(28,30,33,0.15);--shadow-sm:0 1px 3px rgba(28,30,33,0.05);--shadow-md:0 4px 20px rgba(28,30,33,0.08);--shadow-lg:0 12px 40px rgba(28,30,33,0.12);--radius-sm:8px;--radius-md:12px;--radius-lg:20px;--radius-xl:32px;--font-heading:'Syne',sans-serif;--font-body:'Syne',sans-serif;--font-editorial:'Cormorant',serif;--nav-height:108px;}*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}body{font-family:var(--font-body);background:radial-gradient(circle at 55% 40%,var(--bg-secondary) 0%,var(--bg-primary) 70%);color:var(--text-primary);line-height:1.7;overflow-x:hidden;}.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}img{max-width:100%;height:auto;display:block;border-radius:var(--radius-md);}a{color:inherit;text-decoration:none;}button{font-family:inherit;border:none;cursor:pointer;background:none;}.skip-link{position:absolute;top:-60px;left:16px;background:var(--accent);color:#fff;padding:12px 24px;border-radius:var(--radius-sm);font-weight:600;z-index:1000;transition:top 0.3s;}.skip-link:focus{top:16px;}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}.nav{position:fixed;top:0;left:0;right:0;height:var(--nav-height);z-index:100;background:rgba(242,239,235,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}.nav.scrolled{background:rgba(242,239,235,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:96px;}.nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);height:100%;display:flex;align-items:center;justify-content:space-between;}.nav-logo{font-family:var(--font-heading);font-size:1.85rem;font-weight:600;letter-spacing:0.02em;}@view-transition{navigation:auto;}::view-transition-old(root){animation-duration:0.22s;}::view-transition-new(root){animation-duration:0.3s;}@media (prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none !important;}}.nav-logo span{font-weight:400;color:var(--text-secondary);}.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;}.nav-links a{font-size:1.08rem;color:var(--text-secondary);transition:color 0.3s;position:relative;}n:color 0.3s;position:relative;}.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--accent);transition:width 0.3s;}.nav-links a:hover{color:var(--text-primary);}.nav-links a:hover::after,.nav-links a.active::after{width:100%;}.nav-links a.active{color:var(--text-primary);font-weight:500;}.nav-cta{font-size:0.92rem !important;font-weight:500 !important;color:var(--bg-primary) !important;background:var(--text-primary);padding:0.6rem 1.5rem;border-radius:100px;transition:background 0.3s !important;}.nav-cta::after{display:none !important;}.nav-cta:hover{background:var(--accent) !important;color:#fff !important;}.hamburger{display:none;flex-direction:column;gap:5px;width:28px;cursor:pointer;z-index:101;padding:4px 0;}.hamburger span{display:block;height:1.5px;background:var(--text-primary);border-radius:2px;transition:all 0.3s;transform-origin:center;}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,5px);}.hamburger.active span:nth-child(2){opacity:0;}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px);}.mobile-menu{display:none;position:fixed;inset:0;background:var(--bg-primary);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}.mobile-menu.open{opacity:1;pointer-events:all;}.mobile-menu a{font-family:var(--font-heading);font-size:2rem;color:var(--text-primary);transition:color 0.3s;}.mobile-menu a:hover{color:var(--accent);}.container{max-width:var(--max-width);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}section{padding:clamp(4rem,8vw,7rem) 0;}.section-label{font-family:var(--font-body);font-size:0.75rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:block;}.section-heading{font-family:var(--font-heading);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:1.25rem;}.section-text{font-size:1rem;color:var(--text-secondary);line-height:1.85;}.reveal{opacity:0;transform:translateY(28px);}.page-hero{padding-top:calc(var(--nav-height) + 5rem);padding-bottom:5rem;position:relative;overflow:hidden;}.page-hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(201,206,214,0.05) 0%,transparent 70%);border-radius:50%;top:-100px;right:-100px;pointer-events:none;}.breadcrumb{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--text-tertiary);margin-bottom:2rem;}.breadcrumb a{transition:color 0.3s;}.breadcrumb a:hover{color:var(--accent);}.breadcrumb-sep{opacity:0.4;}.hero-intro{max-width:760px;}.hero-kicker{font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}.hero-kicker::before{content:'';width:32px;height:1.5px;background:var(--accent);}.hero-big-title{font-family:var(--font-heading);font-size:clamp(2.8rem,6vw,5rem);font-weight:400;letter-spacing:-0.03em;line-height:1.08;margin-bottom:2rem;}.hero-big-title em{font-style:italic;color:var(--accent);}.hero-lead{font-size:1.15rem;color:var(--text-secondary);line-height:1.8;max-width:600px;}.stats-bar{background:var(--bg-secondary);color:var(--text-primary);padding:3rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center;max-width:900px;margin:0 auto;}.stat-number{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;line-height:1;margin-bottom:0.5rem;letter-spacing:-0.04em;}.stat-label{font-size:0.78rem;color:var(--text-secondary);letter-spacing:0.08em;text-transform:uppercase;}.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:center;}.story-image{border-radius:var(--radius-lg);overflow:hidden;}.story-image img{width:100%;aspect-ratio:4/5;object-fit:cover;}.story-text .section-text + .section-text{margin-top:1rem;}.process{background:var(--bg-card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}.process-intro{text-align:center;max-width:560px;margin:0 auto 4rem;}.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;}.process-step{padding:2rem 1.5rem;text-align:center;position:relative;}@media (min-width:1025px){.process-step:nth-child(5){grid-column:2;}}.process-number{width:48px;height:48px;border-radius:50%;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:var(--text-secondary);letter-spacing:0.02em;margin:0 auto 1.5rem;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);cursor:pointer;}.process-number:hover{transform:scale(1.15);background:var(--accent) !important;color:#fff !important;box-shadow:0 8px 24px rgba(55,101,210,0.35);}.process-step:hover .process-number{background:var(--text-primary);color:var(--bg-primary);}.process-title{font-family:var(--font-heading);font-size:1.1rem;font-weight:500;margin-bottom:0.75rem;}.process-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7;}.process-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}.process-modal.open{opacity:1;pointer-events:all;}.process-modal-backdrop{position:absolute;inset:0;background:rgba(28,30,33,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);cursor:zoom-out;}.process-modal-card{position:relative;z-index:1;width:90vw;max-width:780px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;transform:scale(0.92);transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}.process-modal.open .process-modal-card{transform:scale(1);}.process-modal-close{position:absolute;top:1.25rem;right:1.25rem;width:36px;height:36px;border-radius:50%;background:rgba(28,30,33,0.05);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--text-secondary);cursor:pointer;transition:all 0.3s;z-index:10;}.process-modal-close:hover{background:var(--text-primary);color:var(--bg-primary);}.process-modal-body{display:grid;grid-template-columns:1.15fr 1fr;}.process-modal-img-wrap{background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;overflow:hidden;}.process-modal-img-wrap img{width:100%;height:100%;object-fit:cover;}.process-modal-info{padding:2.5rem;display:flex;flex-direction:column;justify-content:center;}.process-modal-num{font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.15em;margin-bottom:0.5rem;text-transform:uppercase;}.process-modal-title{font-family:var(--font-heading);font-size:1.8rem;font-weight:500;color:var(--text-primary);margin-bottom:1.25rem;line-height:1.2;}.process-modal-desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.65;}@media (max-width:640px){.process-modal-body{grid-template-columns:1fr;}.process-modal-img-wrap{aspect-ratio:16/10;}.process-modal-info{padding:1.75rem;}}.materials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}.material-card{border:1px solid var(--border);border-radius:var(--radius-md);padding:2rem;background:var(--bg-card);transition:all 0.4s ease;}.material-card:hover{border-color:var(--border-strong);box-shadow:var(--shadow-md);transform:translateY(-4px);}.material-icon{width:34px;height:34px;border:1.5px solid var(--border-strong);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;color:var(--text-tertiary);letter-spacing:0.04em;margin-bottom:1.5rem;}.material-title{font-family:var(--font-heading);font-size:1.2rem;font-weight:500;margin-bottom:0.5rem;}.material-desc{font-size:0.88rem;color:var(--text-secondary);line-height:1.7;}.philosophy{background:var(--bg-secondary);color:var(--text-primary);}.philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:center;}.philosophy-image{border-radius:var(--radius-lg);overflow:hidden;}.philosophy-image img{width:100%;aspect-ratio:3/4;object-fit:cover;}.philosophy-text .section-label{color:var(--accent);}.philosophy-text .section-heading{color:var(--text-primary);}.philosophy-text .section-text{color:var(--text-secondary);}.philosophy-text .section-text + .section-text{margin-top:1rem;}.philosophy-quote{margin-top:2.5rem;padding:1.5rem;border-left:2px solid var(--accent);font-family:var(--font-editorial);font-size:1.25rem;font-style:italic;color:var(--text-primary);line-height:1.6;}.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);}.contact-item{display:flex;gap:1.25rem;margin-bottom:2rem;align-items:flex-start;}.contact-icon{width:44px;height:44px;border-radius:50%;background:var(--accent-light);border:1px solid rgba(201,206,214,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}.contact-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.5;fill:none;}.contact-item-label{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.35rem;}.contact-item-value{font-size:0.95rem;color:var(--text-primary);}.contact-item-value a{color:var(--accent);transition:opacity 0.3s;}.contact-item-value a:hover{opacity:0.75;}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}.form-group{margin-bottom:1rem;}.form-label{display:block;font-size:0.78rem;font-weight:500;color:var(--text-secondary);margin-bottom:0.45rem;letter-spacing:0.02em;}.form-input,.form-textarea,.form-select{width:100%;padding:0.85rem 1.1rem;background:var(--bg-card);border:1.5px solid var(--border-strong);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;color:var(--text-primary);outline:none;transition:border-color 0.3s ease;}.form-input::placeholder,.form-textarea::placeholder{color:var(--text-tertiary);}.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);}.form-textarea{min-height:130px;resize:vertical;}.form-select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5D63' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;}.btn-submit{display:inline-flex;align-items:center;gap:0.5rem;padding:0.875rem 2.5rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.35s ease;border:none;font-family:var(--font-body);}.btn-submit:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,206,214,0.25);}.form-note{font-size:0.75rem;color:var(--text-tertiary);margin-top:1rem;}.footer{padding:4rem 0 2rem;border-top:1px solid var(--border);}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}.footer-logo{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;margin-bottom:1rem;}.footer-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.7;}.footer-heading{font-size:0.72rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:1.25rem;}.footer-links{list-style:none;}.footer-links li{margin-bottom:0.6rem;}.footer-links a{font-size:0.88rem;color:var(--text-secondary);transition:color 0.3s;}.footer-links a:hover{color:var(--accent);}.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-tertiary);}.footer-social{display:flex;gap:1.25rem;}.footer-social a{color:var(--text-tertiary);transition:color 0.3s;}.footer-social a:hover{color:var(--text-primary);}.footer-social svg{width:18px;height:18px;}@media (max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr);}.process-grid{grid-template-columns:repeat(2,1fr);}.process-step:nth-child(2)::after{display:none;}.story-grid,.philosophy-grid,.contact-grid{grid-template-columns:1fr;}.materials-grid{grid-template-columns:repeat(2,1fr);}.footer-grid{grid-template-columns:1fr 1fr;}}@media (max-width:768px){.nav-links{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}.process-grid{grid-template-columns:1fr;}.process-step::after{display:none !important;}.materials-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.footer-bottom{flex-direction:column;gap:1rem;}}@media (max-width:480px){.footer-grid{grid-template-columns:1fr;}}@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0.01ms !important;}}.nav-cart-btn{position:relative;cursor:pointer;color:var(--text-secondary);transition:color .3s;background:none;border:none;display:flex;align-items:center;padding:.4rem 0;}.nav-cart-btn:hover{color:var(--text-primary);}.nav-cart-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;}.cart-badge{position:absolute;top:-5px;right:-8px;width:17px;height:17px;background:var(--accent);color:#fff;border-radius:50%;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;opacity:0;transform:scale(0);transition:all .3s cubic-bezier(.34,1.56,.64,1);}.cart-badge.visible{opacity:1;transform:scale(1);}.cart-panel{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;}.cart-panel.open{opacity:1;pointer-events:all;}.cart-backdrop{position:absolute;inset:0;background:rgba(28,30,33,.55);backdrop-filter:blur(10px);cursor:zoom-out;}.cart-inner{position:relative;z-index:1;width:90vw;max-width:760px;max-height:88vh;background:var(--bg-card);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(28,30,33,.2);overflow:hidden;will-change:transform,opacity;}.cart-header{padding:1.75rem 2.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}.cart-header h2{font-family:var(--font-heading);font-size:1.5rem;font-weight:400;}.cart-header-right{display:flex;align-items:center;gap:1rem;}.cart-item-count{font-size:.78rem;color:var(--text-tertiary);}.cart-close-btn{width:38px;height:38px;border-radius:50%;background:rgba(28,30,33,.06);border:1px solid var(--border);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:all .3s;}.cart-close-btn:hover{background:var(--text-primary);color:var(--bg-primary);}.cart-body{flex:1;overflow-y:auto;padding:0 2.5rem;}.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 1rem;text-align:center;color:var(--text-tertiary);gap:.75rem;}.cart-empty-icon{opacity:.2;}.cart-empty-icon svg{width:56px;height:56px;stroke:var(--text-primary);stroke-width:1;fill:none;}.cart-empty p{font-size:.9rem;}.c-item{display:grid;grid-template-columns:72px 1fr auto;gap:1.25rem;align-items:center;padding:1.25rem 0;border-bottom:1px solid var(--border);}.c-item-img{width:72px;height:72px;background:#f0efec;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:.4rem;}.c-item-img img{width:100%;height:100%;object-fit:contain;}.c-item-name{font-family:var(--font-heading);font-size:.95rem;font-weight:500;margin-bottom:.2rem;}.c-item-cat{font-size:.72rem;color:var(--text-tertiary);margin-bottom:.65rem;}.c-item-qty{display:flex;align-items:center;gap:.6rem;}.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;color:var(--text-secondary);transition:all .25s;background:none;}.qty-btn:hover{border-color:var(--accent);color:var(--accent);}.qty-value{font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;min-width:18px;text-align:center;}.c-item-right{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem;}.c-item-price{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;}.c-item-remove{font-size:.7rem;color:var(--text-tertiary);cursor:pointer;transition:color .3s;background:none;border:none;padding:0;}.c-item-remove:hover{color:#c0392b;}.cart-footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);flex-shrink:0;}.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}.cart-total-label{font-size:.85rem;color:var(--text-secondary);}.cart-total-value{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-.04em;}.btn-checkout{width:100%;padding:1rem;background:var(--text-primary);color:var(--bg-primary);border-radius:100px;font-size:.9rem;font-weight:500;cursor:pointer;font-family:var(--font-body);border:none;transition:all .35s;}.btn-checkout:hover{background:var(--accent);}.cart-note{font-size:.72rem;color:var(--text-tertiary);text-align:center;margin-top:.75rem;}html.lenis,html.lenis body{height:auto;}.lenis.lenis-smooth{scroll-behavior:auto !important;}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}.lenis.lenis-stopped{overflow:hidden;}.lenis.lenis-smooth iframe{pointer-events:none;}@media (pointer:fine){body,a,button,[role="button"],input,textarea,select,.team-member,.form-group input,.form-group textarea{cursor:none !important;}.custom-cursor{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99999;}.cursor-dot{position:absolute;top:0;left:0;width:6px;height:6px;background-color:var(--accent);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;}.cursor-ring{position:absolute;top:0;left:0;width:32px;height:32px;border:1px solid rgba(201,206,214,0.45);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:width 0.3s ease,height 0.3s ease,background-color 0.3s ease,border-color 0.3s ease;}.custom-cursor.hovering .cursor-ring{width:52px;height:52px;background-color:rgba(201,206,214,0.1);border-color:rgba(255,255,255,0.8);}.custom-cursor.hovering .cursor-dot{background-color:#ffffff;}}@media (pointer:coarse){.custom-cursor{display:none !important;}}</style>
 </head>
 <body>
     <div class="custom-cursor" aria-hidden="true">
@@ -355,8 +42,7 @@
             <a href="index.html" class="nav-logo" aria-label="GS Knives — Domů">GS <span>Knives</span></a>
             <ul class="nav-links">
                 <li><a href="nase-noze.html">Naše nože</a></li>
-                <li><a href="galerie.html">Galerie</a></li>
-                <li><a href="o-nas.html" class="active">O nás</a></li>
+                                <li><a href="o-nas.html" class="active">O nás</a></li>
                 <li><a href="index.html#recenze">Recenze</a></li>
                 <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
             </ul>
@@ -371,7 +57,6 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace">
         <a href="nase-noze.html" class="mobile-link">Naše nože</a>
-        <a href="galerie.html" class="mobile-link">Galerie</a>
         <a href="o-nas.html" class="mobile-link">O nás</a>
         <a href="index.html#recenze" class="mobile-link">Recenze</a>
         <a href="#kontakt" class="mobile-link">Kontakt</a>
@@ -408,10 +93,6 @@
                         <div class="stat-label">Dokončených kusů</div>
                     </div>
                     <div>
-                        <div class="stat-number" data-count="200">200+</div>
-                        <div class="stat-label">Vrstev oceli</div>
-                    </div>
-                    <div>
                         <div class="stat-number" data-count="2">2</div>
                         <div class="stat-label">Roky v oboru</div>
                     </div>
@@ -428,11 +109,11 @@
             <div class="container">
                 <div class="story-grid">
                     <div class="story-image reveal">
-                        <img src="images/nuz-1-bile.webp" alt="Ručně kovaný lovecký nůž GS Knives — detail rukojetě a čepele" loading="eager">
+                        <img src="images/story-dusk.avif" alt="Damašková dýka GS Knives zapíchnutá ve špalku za soumraku" loading="eager">
                     </div>
                     <div class="story-text">
                         <span class="section-label reveal">Náš příběh</span>
-                        <h2 id="story-title" class="section-heading reveal">Od vášně<br>ke značce</h2>
+                        <h2 id="story-title" class="section-heading reveal">Od vášně ke značce</h2>
                         <p class="section-text reveal">
                             GS Knives začalo jako koníček — fascinace damaškovou ocelí, jejím vzorem a vlastnostmi. Brzy se ale ukázalo, že tvorba nožů není jen zálib, ale řemeslo, které vyžaduje roky praxe, preciznost a neustálé zdokonalování.
                         </p>
@@ -459,32 +140,32 @@
                     <div class="process-step reveal">
                         <div class="process-number">01</div>
                         <h3 class="process-title">Výběr oceli</h3>
-                        <p class="process-desc">Vybíráme kombinace ocelí pro výsledný damašek — nejčastěji 1095 a 15N20. Každá kombinace má jiné vlastnosti i výsledný vzor.</p>
+                        <p class="process-desc">Vybíráme kombinace ocelí pro&nbsp;výsledný damašek – nejčastěji 1095 a&nbsp;15N20. Každá kombinace má jiné vlastnosti i&nbsp;výsledný vzor.</p>
                     </div>
                     <div class="process-step reveal">
                         <div class="process-number">02</div>
                         <h3 class="process-title">Kování a vrstvení</h3>
-                        <p class="process-desc">Ocelové tyče se zahřejí na kovářskou teplotu, svaří a opakovaně skládají. Vzniká tak vrstvená struktura s unikátním vzorem.</p>
+                        <p class="process-desc">Ocelové tyče se&nbsp;zahřejí na&nbsp;kovářskou teplotu, svaří a&nbsp;opakovaně skládají. Vzniká tak&nbsp;vrstvená struktura s&nbsp;unikátním vzorem.</p>
                     </div>
                     <div class="process-step reveal">
                         <div class="process-number">03</div>
                         <h3 class="process-title">Tvarování čepele</h3>
-                        <p class="process-desc">Hrubý tvar čepele vzniká na kovadlině. Poté jemné broušení tvaruje geometrii ostří, bok a špičku nože do finálního tvaru.</p>
+                        <p class="process-desc">Hrubý tvar čepele vzniká na&nbsp;kovadlině. Poté jemné broušení tvaruje geometrii ostří, bok a&nbsp;špičku nože do&nbsp;finálního tvaru.</p>
                     </div>
                     <div class="process-step reveal">
                         <div class="process-number">04</div>
                         <h3 class="process-title">Tepelné zpracování</h3>
-                        <p class="process-desc">Kalení a popouštění určuje tvrdost a pružnost oceli. Správný proces zajistí ostří, které drží dlouho a přitom se nezalomí.</p>
+                        <p class="process-desc">Kalení a&nbsp;popouštění určuje tvrdost a&nbsp;pružnost oceli. Správný proces zajistí ostří, které drží dlouho a&nbsp;přitom se&nbsp;nezalomí.</p>
                     </div>
                     <div class="process-step reveal">
                         <div class="process-number">05</div>
                         <h3 class="process-title">Leptání vzoru</h3>
-                        <p class="process-desc">Okyselení čepele zvýrazní damaškový vzor — kontrast světlé a tmavé oceli vytvoří ten charakteristický efekt vírů a vln.</p>
+                        <p class="process-desc">Okyselení čepele zvýrazní damaškový vzor – kontrast světlé a&nbsp;tmavé oceli vytvoří ten charakteristický efekt vírů a&nbsp;vln.</p>
                     </div>
                     <div class="process-step reveal">
                         <div class="process-number">06</div>
                         <h3 class="process-title">Rukojeť a finálka</h3>
-                        <p class="process-desc">Rukojeť je tvarována, broušena a leštěna ručně. Závěrečné ostření nože probíhá na japonských brousných kamenech až na žiletkovou ostrost.</p>
+                        <p class="process-desc">Rukojeť je tvarována, broušena a&nbsp;leštěna ručně. Závěrečné ostření nože probíhá na&nbsp;japonských brousných kamenech až na&nbsp;žiletkovou ostrost.</p>
                     </div>
                 </div>
             </div>
@@ -496,38 +177,38 @@
                 <div class="reveal">
                     <span class="section-label">Materiály</span>
                     <h2 id="materials-title" class="section-heading">Pouze to nejlepší</h2>
-                    <p class="section-text" style="max-width: 560px;">Každý materiál vybíráme s rozvahou — jak pro jeho vlastnosti, tak pro krásu.</p>
+                    <p class="section-text" style="max-width: 560px;">Každý materiál vybíráme s&nbsp;rozvahou – jak pro&nbsp;jeho vlastnosti, tak pro&nbsp;krásu.</p>
                 </div>
                 <div class="materials-grid">
                     <div class="material-card reveal">
                         <div class="material-icon">01</div>
                         <h3 class="material-title">Damašková ocel</h3>
-                        <p class="material-desc">Kombinace 1095 a 15N20 — dvě oceli s různým obsahem uhlíku a niklu. Nikl tvoří světlé vrstvy, uhlík tmavé. Výsledek: nezaměnitelný vzor a vynikající výkonnost ostří při 60–63 HRC.</p>
+                        <p class="material-desc">Kombinace 1095 a&nbsp;15N20 – dvě oceli s&nbsp;různým obsahem uhlíku a&nbsp;niklu. Nikl tvoří světlé vrstvy, uhlík tmavé. Výsledek: nezaměnitelný vzor a&nbsp;vynikající výkonnost ostří při&nbsp;60–63 HRC.</p>
                     </div>
                     <div class="material-card reveal">
                         <div class="material-icon">02</div>
                         <h3 class="material-title">Stabilizované dřevo</h3>
-                        <p class="material-desc">Přírodní dřevo (topol kořenice, dub, ořech, olivové dřevo) je vakuově impregnováno pryskyřicí. Výsledek je materiál odolný vlhkosti, trvanlivý a esteticky výjimečný.</p>
+                        <p class="material-desc">Přírodní dřevo (topol kořenice, dub, ořech, olivové dřevo) je vakuově impregnováno pryskyřicí. Výsledek je materiál odolný vlhkosti, trvanlivý a&nbsp;esteticky výjimečný.</p>
                     </div>
                     <div class="material-card reveal">
                         <div class="material-icon">03</div>
                         <h3 class="material-title">Resin a pryskyřice</h3>
-                        <p class="material-desc">Barevné resinové vložky a spacery dodávají rukojeti charakter. Každá kombinace je unikátní — od modré přes fialovou až po přírodní zelené tóny inspirované lesem.</p>
+                        <p class="material-desc">Barevné resinové vložky a&nbsp;spacery dodávají rukojeti charakter. Každá kombinace je unikátní – od&nbsp;modré přes&nbsp;fialovou až po&nbsp;přírodní zelené tóny inspirované lesem.</p>
                     </div>
                     <div class="material-card reveal">
                         <div class="material-icon">04</div>
                         <h3 class="material-title">Záštity a kolíky</h3>
-                        <p class="material-desc">Měď, mosaz a nerezová ocel — záštity a kolíky nejsou jen funkční, ale tvoří důležitý vizuální prvek nože. Jsou ručně tvarovány a leštěny do zrcadlového lesku.</p>
+                        <p class="material-desc">Měď, mosaz a&nbsp;nerezová ocel – záštity a&nbsp;kolíky nejsou jen funkční, ale tvoří důležitý vizuální prvek nože. Jsou ručně tvarovány a&nbsp;leštěny do&nbsp;zrcadlového lesku.</p>
                     </div>
                     <div class="material-card reveal">
                         <div class="material-icon">05</div>
                         <h3 class="material-title">Exotické materiály</h3>
-                        <p class="material-desc">Pro speciální edice používáme mammutí kost, mamutí zubovinu, rohový materiál nebo vzácná exotická dřeva. Každý takový nůž je skutečně sběratelský kus.</p>
+                        <p class="material-desc">Pro&nbsp;speciální edice používáme mamutí kost, mamutí zubovinu, rohový materiál nebo vzácná exotická dřeva. Každý takový nůž je skutečně sběratelský kus.</p>
                     </div>
                     <div class="material-card reveal">
                         <div class="material-icon">06</div>
                         <h3 class="material-title">Pouzdra a kožené příslušenství</h3>
-                        <p class="material-desc">Ke každému nůži nabízíme kožené pouzdro (sheath) vyrobené na míru. Přírodní vegetabilně činěná kůže se s časem patinuje a přilne k nožo jako druhá pokožka.</p>
+                        <p class="material-desc">Ke&nbsp;každému noži nabízíme kožené pouzdro (sheath) vyrobené na&nbsp;míru. Přírodní vegetabilně činěná kůže se&nbsp;s&nbsp;časem patinuje a&nbsp;přilne k&nbsp;noži jako druhá pokožka.</p>
                     </div>
                 </div>
             </div>
@@ -538,16 +219,16 @@
             <div class="container">
                 <div class="philosophy-grid">
                     <div class="philosophy-image reveal">
-                        <img src="images/nuz-2-bile.webp" alt="Santoku nůž GS Knives — damaškový vzor a dřevěná rukojeť" loading="eager">
+                        <img src="images/damascus-macro.avif" alt="Makro detail peříčkového damašku s mosaznou záštitou" loading="eager">
                     </div>
                     <div class="philosophy-text">
                         <span class="section-label reveal">Filozofie</span>
                         <h2 id="philosophy-title" class="section-heading reveal">Nůž jako dílo,<br>ne jen nástroj</h2>
                         <p class="section-text reveal">
-                            Věříme, že prémiový nůž by měl splňovat dvě podmínky — být absolutně funkční a zároveň vizuálně přesvědčivý. Tyto dva požadavky si přitom vůbec neodporují.
+                            Věříme, že&nbsp;prémiový nůž by&nbsp;měl splňovat dvě podmínky – být&nbsp;absolutně funkční a&nbsp;zároveň vizuálně přesvědčivý. Tyto dva požadavky si&nbsp;přitom vůbec neodporují.
                         </p>
                         <p class="section-text reveal">
-                            Damašková ocel je funkční právě proto, že je vrstvená. A vrstvená struktura je zároveň ta krásná věc, kvůli které se lidé zamilují do damaška. Forma a funkce v dokonalé shodě.
+                            Damašková ocel je&nbsp;funkční právě proto, že&nbsp;je&nbsp;vrstvená. A&nbsp;vrstvená struktura je&nbsp;zároveň ta&nbsp;krásná věc, kvůli které se&nbsp;lidé zamilují do&nbsp;damašku. Forma a&nbsp;funkce v&nbsp;dokonalé shodě.
                         </p>
                         <div class="philosophy-quote reveal">
                             „Každý nůž, který opustí naši dílnu, musí být kusem, který bychom si sami nechali."
@@ -563,7 +244,7 @@
                 <div class="reveal" style="margin-bottom: 3.5rem;">
                     <span class="section-label">Kontakt</span>
                     <h2 id="contact-title" class="section-heading">Napište nám</h2>
-                    <p class="section-text" style="max-width: 480px;">Máte dotaz na konkrétní nůž, zájem o zakázkový kus nebo chcete jen pozdravit? Rádi uslyšíme.</p>
+                    <p class="section-text" style="max-width: 480px;">Máte dotaz na&nbsp;konkrétní nůž, zájem o&nbsp;zakázkový kus nebo chcete jen pozdravit? Rádi uslyšíme.</p>
                 </div>
                 <div class="contact-grid">
                     <div class="contact-info">
@@ -653,14 +334,13 @@
             <div class="footer-grid">
                 <div>
                     <div class="footer-logo">GS Knives</div>
-                    <p class="footer-desc">Prémiové ručně kované damaškové nože. České nožířství s vášní pro detail a dokonalost.</p>
+                    <p class="footer-desc">Prémiové ručně kované damaškové nože. České nožířství s&nbsp;vášní pro&nbsp;detail a&nbsp;dokonalost.</p>
                 </div>
                 <div>
                     <h3 class="footer-heading">Navigace</h3>
                     <ul class="footer-links">
                         <li><a href="nase-noze.html">Naše nože</a></li>
-                        <li><a href="galerie.html">Galerie</a></li>
-                        <li><a href="o-nas.html">O nás</a></li>
+                                                <li><a href="o-nas.html">O nás</a></li>
                         <li><a href="index.html#recenze">Recenze</a></li>
                     </ul>
                 </div>
@@ -692,6 +372,24 @@
             </div>
         </div>
     </footer>
+
+    <!-- === PROCESS DETAIL MODAL === -->
+    <div class="process-modal" id="process-modal" role="dialog" aria-modal="true" aria-label="Detail kovářského procesu">
+        <div class="process-modal-backdrop" id="process-modal-backdrop"></div>
+        <div class="process-modal-card" id="process-modal-card">
+            <button class="process-modal-close" id="process-modal-close" aria-label="Zavřít">✕</button>
+            <div class="process-modal-body">
+                <div class="process-modal-img-wrap">
+                    <img id="process-modal-img" src="" alt="" width="500" height="500">
+                </div>
+                <div class="process-modal-info">
+                    <div class="process-modal-num" id="process-modal-num"></div>
+                    <h2 class="process-modal-title" id="process-modal-title"></h2>
+                    <p class="process-modal-desc" id="process-modal-desc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -755,6 +453,22 @@
                 gsap.to(cursor, { opacity: 1, duration: 0.3 });
             });
         }
+
+        // ===========================
+        // NAVIGATION — Scroll shrink & blur
+        // ===========================
+        const navbar = document.getElementById('navbar');
+
+        ScrollTrigger.create({
+            start: 'top -80',
+            onUpdate: (self) => {
+                if (self.direction === 1 && window.scrollY > 80) {
+                    navbar.classList.add('scrolled');
+                } else if (window.scrollY <= 80) {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+        });
 
         // === HAMBURGER ===
         const hamburger = document.getElementById('hamburger');
@@ -844,6 +558,72 @@
             btn.addEventListener('mouseenter', () => gsap.to(btn, { scale: 1.02, duration: 0.2, ease: 'power2.out', overwrite: 'auto' }));
             btn.addEventListener('mouseleave', () => gsap.to(btn, { scale: 1, duration: 0.2, ease: 'power2.out', overwrite: 'auto' }));
         });
+
+        // === PROCESS STEP DETAIL MODAL ===
+        const processDetails = {
+            "01": {
+                title: "Výběr oceli",
+                image: "images/process-1.avif",
+                desc: "Celý proces začíná precizním výběrem ocelí. Pro výrobu damašku vrstvíme tvrdou uhlíkovou ocel 1095, která zajišťuje excelentní držení ostří, s houževnatou niklovou ocelí 15N20, která dává čepeli vysokou pružnost a stříbrný odlesk. Pečlivě očištěné pláty oceli skládáme na sebe do tlustého paketu, který tvoří základ budoucího damašku."
+            },
+            "02": {
+                title: "Kování a vrstvení",
+                image: "images/process-2.avif",
+                desc: "Paket ocelí zahřejeme ve výhni na kovářskou svařovací teplotu (přes 1100 °C). Za těchto extrémních podmínek dojde k dokonalému difuznímu spojení plátů oceli v jeden monolit. Tento rozžhavený ingot koveme pod pneumatickým bušarem, vytahujeme, přesekáváme a znovu skládáme na sebe. Tímto způsobem násobíme počet vrstev."
+            },
+            "03": {
+                title: "Tvarování čepele",
+                image: "images/process-3.avif",
+                desc: "Z vykovaného damaškového bloku začínáme tvarovat samotné ostří a čepel nože. Tvarování provádíme nejprve ručním kováním za tepla na kovadlině, abychom zpevnili vnitřní strukturu kovu. Poté následuje přesné broušení na pásové brusce za studena, kde definujeme přesné úhly ostří, tloušťku hřbetu a výsledný profil nože."
+            },
+            "04": {
+                title: "Tepelné zpracování",
+                image: "images/process-4.avif",
+                desc: "Zásadní fáze celého procesu. Čepel zahřejeme na kalicí teplotu a prudce ji ochladíme v rozehřátém kalicím oleji, čímž ocel dosáhne maximální možné tvrdosti. Následně nůž prochází popouštěním (zahříváním na nižší teploty po dobu několika hodin), čímž se odstraní vnitřní pnutí kovu a získáme ideální HRC tvrdost a ohebnost."
+            },
+            "05": {
+                title: "Leptání vzoru",
+                image: "images/process-5.avif",
+                desc: "Damašková čepel je po zakalení a jemném vyleštění ponořena do roztoku kyseliny. Kyselina odlišně reaguje s uhlíkovou ocelí 1095 (která ztmavne) a niklovou ocelí 15N20 (která zůstane lesklá). Během několika minut na čepeli vystoupí neopakovatelný, kontrastní a extrémně detailní vzor, který je otiskem ruční práce kováře."
+            },
+            "06": {
+                title: "Rukojeť a finálka",
+                image: "images/process-6.avif",
+                desc: "Na čepel napasujeme a přilepíme rukojeť z prémiových materiálů — kořenice, stabilizovaného dřeva, pryskyřice nebo mědi. Rukojeť brousíme a leštíme do ergonomického tvaru. Závěrečným krokem je ruční obtahování a ostření nože na sadě japonských brusných kamenů (až do zrnitosti 8000), čímž nůž získá žiletkovou ostrost."
+            }
+        };
+
+        const processModal = document.getElementById('process-modal');
+        const processModalImg = document.getElementById('process-modal-img');
+        const processModalNum = document.getElementById('process-modal-num');
+        const processModalTitle = document.getElementById('process-modal-title');
+        const processModalDesc = document.getElementById('process-modal-desc');
+        const processModalClose = document.getElementById('process-modal-close');
+        const processModalBackdrop = document.getElementById('process-modal-backdrop');
+
+        document.querySelectorAll('.process-number').forEach(num => {
+            num.addEventListener('click', () => {
+                const stepNum = num.textContent.trim();
+                const data = processDetails[stepNum];
+                if (data) {
+                    processModalNum.textContent = `Krok ${stepNum}`;
+                    processModalTitle.textContent = data.title;
+                    processModalDesc.textContent = data.desc;
+                    processModalImg.src = data.image;
+                    processModalImg.alt = data.title;
+                    processModal.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        const closeProcessModal = () => {
+            processModal.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+
+        if (processModalClose) processModalClose.addEventListener('click', closeProcessModal);
+        if (processModalBackdrop) processModalBackdrop.addEventListener('click', closeProcessModal);
 
         window.addEventListener('resize', () => ScrollTrigger.refresh());
         window.addEventListener('load', () => console.log('✅ GS Knives — Loaded'));
